@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/list')
-def route_list():
+def home():
     questions = data_handler.get_all_question(convert_linebreaks=True)
 
     return render_template('list.html', questions=questions, page_title='Welcome')
@@ -17,20 +17,17 @@ def route_question():
     return render_template('question.html')
 
 
-@app.route('/question/<question_id>')
-def display_question(question_id: int):
-
+@app.route('/question/<int:question_id>')
+def display_question(question_id):
     question = {
-        'id': 1,
-        'submission_time': '2018-11-05',
-        'title': "This is a test post",
-        'content': "First question content comes here",
-        'image': 'default.jpg'
-        }
+        'id': data_handler.get_question(question_id),
+        'title': 'Test question'
+    }
 
     return render_template('single_question.html',
-                           question_id=question['id'],
-                           page_title=question['title'])
+                           page_title="Teszt",
+                           question_id=data_handler.get_question(question_id))
+
 
 
 if __name__ == '__main__':
