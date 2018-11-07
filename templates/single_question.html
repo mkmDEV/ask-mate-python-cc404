@@ -1,13 +1,16 @@
 {% extends 'layout.html' %}
+
 {% block content %}
+            <a href="{{ url_for('home') }}">Back to home</a>
     <article>
         <header>
             <h1>{{ question['title'] }}</h1>
-            <small>Published: <time pubdate="{{ question[''] }}">{{ post.date_posted }}</time></small>
+            <small>Published: <time pubdate="2018">2018</time> By: Test User</small>
         </header>
         <div class="single_post">
-            {{ question['content'] }}
-            <!-- pagination comes here{{ url_for() }} Previous question link-->
+            {{ question['image'] }}
+           {{ question['message'] }}
+            <!-- pagination comes here Previous question link-->
         </div>
     </article>
 {% endblock content %}
