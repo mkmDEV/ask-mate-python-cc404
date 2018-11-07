@@ -12,14 +12,15 @@ def route_list():
     return render_template('list.html', questions=questions, page_title='Welcome')
 
 
-@app.route('question/<question_id')
-def display_question(question_id: int)
-    return (render_template("single_question.html")
-
-
 @app.route('/newquestion')
 def route_question():
     return render_template('question.html')
+
+
+@app.route('/question/<question_id>')
+def display_question(question_id: int):
+    question_id = question.id
+    return render_template("single_question.html")
 
 
 if __name__ == '__main__':
