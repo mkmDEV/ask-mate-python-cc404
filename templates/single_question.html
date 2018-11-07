@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <article>
+        <header>
+            <h1>{{ question['title'] }}</h1>
+            <small>Published: <time pubdate="{{ question[''] }}">{{ post.date_posted }}</time></small>
+        </header>
+        <div class="single_post">
+            {{ question['content'] }}
+            <!-- pagination comes here{{ url_for() }} Previous question link-->
+        </div>
+    </article>
+{% endblock content %}

@@ -19,8 +19,18 @@ def route_question():
 
 @app.route('/question/<question_id>')
 def display_question(question_id: int):
-    question_id = question.id
-    return render_template("single_question.html")
+
+    question = {
+        'id': 1,
+        'submission_time': '2018-11-05',
+        'title': "This is a test post",
+        'content': "First question content comes here",
+        'image': 'default.jpg'
+        }
+
+    return render_template('single_question.html',
+                           question_id=question['id'],
+                           page_title=question['title'])
 
 
 if __name__ == '__main__':
