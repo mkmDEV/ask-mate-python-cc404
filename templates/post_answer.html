@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %} What's your answer {% endblock %}
+
+{% block content %}
+    <form action='/question/<question_id>/new-answer', method="post">
+        <div><label for="new_answer">Your answer: </label><br>
+            <textarea name=new_answer id=new_answer minlength="10" rows="10" cols="100"></textarea></div>
+        <a href='/question/<question_id>/new-answer'><input type="submit" id="post_answer" value="Post Your Answer"></a>
+    </form>
+{% endblock %}
