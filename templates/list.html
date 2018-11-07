@@ -6,5 +6,26 @@
 
 {% block content %}
     <h1>AskMate</h1>
-
+    <br>
+    <a href="newquestion">Add new Question</a>
+    <br>
+    <br>
+    <table style="width: auto">
+        <tr>
+            <th width="5%">ID</th>
+            <th width="50%">Title</th>
+            <th width="15%">Submission Time</th>
+            <th width="15%">View Number</th>
+            <th width="15%">Vote Number</th>
+        </tr>
+        {% for question in questions %}
+            <tr>
+                <td align="center">{{ question['id'] }}</td>
+                <td align="left">{{ question['title'] }}</td>
+                <td align="center">{{ question['submission_time'] }}</td>
+                <td align="center">{{ question['view_number'] }}</td>
+                <td align="center">{{ question['vote_number'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
