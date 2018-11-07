@@ -25,6 +25,16 @@ def display_question(question_id :int):
                            )
 
 
+@app.route('/question/<question_id>/new-answer')
+def write_new_answer(question_id):
+    return render_template('post_answer.html')
+
+
+@app.route('/question/<question_id>/new-answer', methods=['POST'])
+def post_new_answer(question_id):
+    return redirect('/')
+
+
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
