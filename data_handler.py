@@ -1,23 +1,25 @@
 import csv
-import os
-import time
 import datetime
 from operator import itemgetter
 
-QUESTIONS_FILE_PATH = os.getenv('QUESTIONS_FILE_PATH') if 'QUESTIONS_FILE_PATH' in os.environ else 'question.csv'
-ANSWERS_FILE_PATH = os.getenv('ANSWERS_FILE_PATH') if 'ANSWERS_FILE_PATH' in os.environ else 'answer.csv'
 QUESTION_HEADER = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
 ANSWER_HEADER = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 
 
-def get_all_question(convert_linebreaks=False):
-    all_question = get_csv_data()
-
-    if convert_linebreaks:
-        for question in all_question:
-            question['message'] = convert_linebreaks_to_br(question['message'])
-
-    return all_question
+def get_csv_data(file='question.csv', id=None, key=None, isquestions=True):
+    all_data = []
+    with open(file, encoding='utf-8') as csv_file:
+        reader = csv.DictReader(csv_file)
+        for row in reader:
+            single_data = dict(row)
+            if isquestions:
+                if id is not None and id == single_data[key]:
+                    return single_data
+                all_data.append(single_data)
+            else:
+                if id is not None and id == single_data[key]:
+                    all_data.append(single_data)
+        return all_data
 
 
 def get_timeform_from_stamp(table, istable=True):
@@ -28,13 +30,8 @@ def get_timeform_from_stamp(table, istable=True):
         table['submission_time'] = datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
     return table
 
-def sorter(table, keyvalue, isreverse=False):
-    sortedtable = sorted(table, key=itemgetter(keyvalue), reverse=isreverse)
-    return sortedtable
-
-
-def get_question(question_id):
-    return get_csv_data(question_id)
+def sorter(table, keyvalue, isreverse=True):
+    return sorted(table, key=itemgetter(keyvalue), reverse=isreverse)
 
 
 def get_next_id():
@@ -44,23 +41,6 @@ def get_next_id():
         return '1'
 
     return str(int(existing_data[-1]['id']) + 1)
-
-
-def get_csv_data(one_question_id=None):
-    questions = []
-
-    with open(QUESTIONS_FILE_PATH, encoding='utf-8') as csv_file:
-        reader = csv.DictReader(csv_file)
-
-        for row in reader:
-            user_story = dict(row)
-
-            if one_question_id is not None and one_question_id == user_story['id']:
-                return user_story
-
-            questions.append(user_story)
-
-    return questions
 
 
 def add_user_story(story):
@@ -90,7 +70,3 @@ def add_user_story_to_file(story, append=True):
 
         if append:
             writer.writerow(story)
-
-
-def convert_linebreaks_to_br(original_str):
-    return '<br>'.join(original_str.split('\n'))

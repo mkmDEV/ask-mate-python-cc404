@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-
 {% block content %}
     <article>
         <header>
@@ -16,32 +15,30 @@
                 <a href="#" title="Only the author can do it"><button type="button" class="btn btn-outline-danger">Edit Question</button></a>
                 <a href="#" title="Only the author can do it"><button type="button" class="btn btn-outline-danger">Delete Question</button></a>
             </div>
-                <div class="row mt-5">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-9"></div>
-                    <div class="col-md-1 text-center">Votes</div>
-                </div>
+                <div class="row mt-5"></div>
                 <div class="row">
+                    <table class="table table-stripped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Message</th>
+                            <th>Submission Time</th>
+                            <th>Vote Number</th>
+                        </tr>
+                        </thead>
 
-                {% for answer in answers %}
-                    <div class="col-md-2">
-                        <p>
-                            {{ answer['submission_time'] }}
-                        </p>
-                    </div>
-                    <div class="col-md-9">
-                        <p>
-                            {{ answer['message'] }}
-                        </p>
-                    </div>
-                    <div class="col-md-1 text-center">
-                        <p>
-                            {{ answer['vote_number'] }}
-                        </p>
-                    </div>
-                {% endfor %}
+                        <tbody>
+                            {% for answer in answers %}
+                            <tr>
+                                <th scope="row" align="center">{{ answer['id'] }}</th>
+                                <td align="left">{{ answer['message'] }}</td>
+                                <td align="center">{{ answer['submission_time'] }}</td>
+                                <td align="center">{{ answer['vote_number'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <!-- pagination comes here Previous question link-->
         </div>
     </article>
 {% endblock content %}
