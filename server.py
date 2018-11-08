@@ -18,10 +18,29 @@ def route_question():
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
 def display_question(question_id: int):
+    answers = [
+        {
+        'id': 0,
+        'submission_time': '2018-11-01',
+        'vote_number': 12,
+        'question_id': 0,
+        'message': 'Here is a sample Lorem Ipsum Sit Dolor Amet',
+        'image': '',
+        },
+        {
+        'id': 1,
+        'submission_time': '2018-11-02',
+        'vote_number': -5,
+        'question_id': 1,
+        'message': 'Here is another sample Lorem Ipsum Sit Dolor Amet',
+        'image': '',
+        },
+    ]
     question_data = data_handler.get_question(question_id)
     return render_template('single_question.html',
                            question=question_data,
                            page_title=question_data['title'],
+                           answers=answers,
                            )
 
 
