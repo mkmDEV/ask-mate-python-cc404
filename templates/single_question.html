@@ -17,11 +17,31 @@
             </small>
         </header>
         <div class="single_post">
-            {{ question['image'] }}
-           {{ question['message'] }}
+            <p>{{ question['message'] }}</p>
+            <p><a href="{{ url_for('write_new_answer', question_id=question['id']) }}">Send an Answer</a></p>
+            <div class="row">
+                {% for answer in answers %}
+                    <div class="col-md-2">
+                        <p>
+                            {{ answer['submission_time'] }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-8">
+                        <p>
+                            {{ answer['message'] }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-1">
+                        <p>
+                            {{ answer['vote_number'] }}
+                        </p>
+                    </div>
+
+                {% endfor %}
+            </div>
             <!-- pagination comes here Previous question link-->
-            <br>
-            <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"> Send an Answer</a>
         </div>
     </article>
 {% endblock content %}
