@@ -16,36 +16,39 @@
                 By: Test User
             </small>
         </header>
-        <div class="single_post">
+        <div class="container single_post">
             <p>{{ question['message'] }}</p>
-        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-            <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-secondary">Send an Answer</button></a>
-            <a href="#" title="Only the author can do it"><button type="button" class="btn btn-secondary">Edit Question</button></a>
-            <a href="#" title="Only the author can do it"><button type="button" class="btn btn-secondary">Delete Question</button></a>
-        </div>
-            <div class="row">
+            <div class="btn-group btn-group-lg" role="group" aria-label="Editing buttons">
+                <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Send an Answer</button></a>
+                <a href="#" title="Only the author can do it"><button type="button" class="btn btn-outline-danger">Edit Question</button></a>
+                <a href="#" title="Only the author can do it"><button type="button" class="btn btn-outline-danger">Delete Question</button></a>
+            </div>
+                <div class="row mt-5">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-9"></div>
+                    <div class="col-md-1 text-center">Votes</div>
+                </div>
+                <div class="row">
+
                 {% for answer in answers %}
                     <div class="col-md-2">
                         <p>
                             {{ answer['submission_time'] }}
                         </p>
                     </div>
-
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <p>
                             {{ answer['message'] }}
                         </p>
                     </div>
-
-                    <div class="col-md-1">
+                    <div class="col-md-1 text-center">
                         <p>
                             {{ answer['vote_number'] }}
                         </p>
                     </div>
-
                 {% endfor %}
-            </div>
-            <!-- pagination comes here Previous question link-->
+                </div>
+                <!-- pagination comes here Previous question link-->
         </div>
     </article>
 {% endblock content %}
