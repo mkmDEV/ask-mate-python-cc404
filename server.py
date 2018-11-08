@@ -8,7 +8,9 @@ app = Flask(__name__)
 @app.route('/list')
 def home():
     questions = data_handler.get_all_question(convert_linebreaks=True)
-    return render_template('list.html', questions=questions, page_title='Welcome')
+    return render_template('list.html',
+                           questions=questions,
+                           page_title='Welcome to AskMate!')
 
 
 @app.route('/new-question')
