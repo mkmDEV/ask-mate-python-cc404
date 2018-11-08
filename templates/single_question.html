@@ -21,7 +21,7 @@
            {{ question['message'] }}
             <!-- pagination comes here Previous question link-->
             <br>
-            <a href="/question/<question_id>/new-answer"> Send an Answer</a>
+            <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"> Send an Answer</a>
         </div>
     </article>
 {% endblock content %}
