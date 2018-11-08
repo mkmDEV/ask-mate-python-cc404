@@ -1,44 +1,51 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-            <article>
-                <header>
-                    <h1>{{ question['title'] }}</h1>
-                    <small>
-                        Published:
-                        <time pubdate="{{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
-                                             +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
-                                             +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}">
-                            {{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
-                                             +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
-                                             +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}
-                        </time>
-                        By: Test User
-                    </small>
-                </header>
-                <div class="single_post">
-                    <p>{{ question['message'] }}</p>
-                    <p><a href="{{ url_for('write_new_answer', question_id=question['id']) }}">Send an Answer</a></p>
-                    <div class="row">
-                    {% for answer in answers %}
-                        <div class="col-md-2">
-                            <p>
-                                {{ answer['submission_time'] }}
-                            </p>
-                        </div>
-                        <div class="col-md-8">
-                            <p>
-                                {{ answer['message'] }}
-                            </p>
-                        </div>
-                        <div class="col-md-1">
-                            <p>
-                                {{ answer['vote_number'] }}
-                            </p>
-                        </div>
-                    {% endfor %}
+    <article>
+        <header>
+            <h1>{{ question['title'] }}</h1>
+            <small>
+                Published:
+                <time pubdate="{{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
+                                     +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
+                                     +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}">
+                    {{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
+                                     +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
+                                     +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}
+                </time>
+                By: Test User
+            </small>
+        </header>
+        <div class="single_post">
+            <p>{{ question['message'] }}</p>
+        <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+            <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-secondary">Send an Answer</button></a>
+            <a href="#" title="Only the author can do it"><button type="button" class="btn btn-secondary">Edit Question</button></a>
+            <a href="#" title="Only the author can do it"><button type="button" class="btn btn-secondary">Delete Question</button></a>
+        </div>
+            <div class="row">
+                {% for answer in answers %}
+                    <div class="col-md-2">
+                        <p>
+                            {{ answer['submission_time'] }}
+                        </p>
                     </div>
-                    <!-- Pagination will come here later (link for previous and next questions) -->
-                </div>
-            </article>
+
+                    <div class="col-md-8">
+                        <p>
+                            {{ answer['message'] }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-1">
+                        <p>
+                            {{ answer['vote_number'] }}
+                        </p>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <!-- pagination comes here Previous question link-->
+        </div>
+    </article>
 {% endblock content %}
