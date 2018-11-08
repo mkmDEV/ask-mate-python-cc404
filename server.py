@@ -11,9 +11,14 @@ def home():
     return render_template('list.html', questions=questions, page_title='Welcome')
 
 
-@app.route('/newquestion')
-def route_question():
+@app.route('/new-question')
+def write_new_question():
     return render_template('question.html')
+
+
+@app.route('/new-question', methods=['POST'])
+def post_new_question():
+    return redirect('/')
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
