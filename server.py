@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-import data_handler
+import data_handler, os
 
 app = Flask(__name__)
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 @app.route('/')
@@ -17,6 +18,18 @@ def home():
 
 @app.route('/new-question')
 def write_new_question():
+    target = os.path.join(APP_ROOT, 'images/')
+    print(target)
+
+    if not os.path.isdir(target):
+        os.mkdir(target)
+
+    for file in request.files.getlist('file'):
+        print(file)
+        filename = file.filename
+        destination = "/".join([target, filename])
+        print(destination)
+        file.save(destination)
     return render_template('question.html')
 
 
