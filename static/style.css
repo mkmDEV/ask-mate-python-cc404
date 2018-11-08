@@ -1,5 +1,5 @@
 body {
-  background: #fafafa;
+  background: linear-gradient(135deg, #e66465, #9198e5) no-repeat fixed center;
   color: #333333;
   margin-top: 5rem;
 }
@@ -26,8 +26,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
+  padding: 60px 50px;
+  border: 1px solid #000;
   border-radius: 3px;
   margin-bottom: 20px;
 }
