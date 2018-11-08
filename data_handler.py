@@ -66,8 +66,8 @@ def update_user_story(story):
 def add_user_story_to_file(story, append=True):
     existing_data = get_all_question()
 
-    with open(QUESTIONS_FILE_PATH, 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=QUESTION_HEADER)
+    with open(QUESTIONS_FILE_PATH, 'w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=QUESTION_HEADER)
         writer.writeheader()
 
         for row in existing_data:
