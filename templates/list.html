@@ -1,14 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>AskMate</h1>
-    <br>
-    <a href="newquestion">Add new Question</a>
-    <br>
-    <br>
-    <table style="width: auto">
+    <h1>{{ page_title }}</h1>
+    <p><a href="newquestion">Add new Question</a></p>
+    <table>
         <tr>
             <th width="5%">ID</th>
-            <th width="50%">Title</th>
+            <th width="60%">Title</th>
             <th width="15%">Submission Time</th>
             <th width="15%">View Number</th>
             <th width="15%">Vote Number</th>
