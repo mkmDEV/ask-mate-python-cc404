@@ -17,7 +17,7 @@ def route_question():
 
 
 @app.route('/question/<question_id>', methods=['GET', 'POST'])
-def display_question(question_id :int):
+def display_question(question_id: int):
     question_data = data_handler.get_question(question_id)
     return render_template('single_question.html',
                            question=question_data,
@@ -26,8 +26,13 @@ def display_question(question_id :int):
 
 
 @app.route('/question/<question_id>/new-answer')
-def write_new_answer(question_id):
-    return render_template('post_answer.html')
+def write_new_answer(question_id: int):
+    question_data = data_handler.get_question(question_id)
+    return render_template('post_answer.html',
+                           question=question_data,
+                           question_id=question_id,
+                           page_title=question_data['title']
+                           )
 
 
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
