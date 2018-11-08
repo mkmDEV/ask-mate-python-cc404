@@ -8,6 +8,8 @@ app = Flask(__name__)
 @app.route('/list')
 def home():
     questions = data_handler.get_all_question(convert_linebreaks=True)
+    questions = data_handler.sorter(questions, 'submission_time')
+    questions = data_handler.get_timeform_from_stamp(questions)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -44,6 +46,8 @@ def display_question(question_id: int):
         },
     ]
     question_data = data_handler.get_question(question_id)
+    print(question_data)
+    question_data = data_handler.get_timeform_from_stamp(question_data, False)
     return render_template('single_question.html',
                            question=question_data,
                            page_title=question_data['title'],

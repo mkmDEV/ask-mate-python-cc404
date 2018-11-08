@@ -1,6 +1,8 @@
 import csv
 import os
 import time
+import datetime
+from operator import itemgetter
 
 QUESTIONS_FILE_PATH = os.getenv('QUESTIONS_FILE_PATH') if 'QUESTIONS_FILE_PATH' in os.environ else 'question.csv'
 ANSWERS_FILE_PATH = os.getenv('ANSWERS_FILE_PATH') if 'ANSWERS_FILE_PATH' in os.environ else 'answer.csv'
@@ -18,8 +20,17 @@ def get_all_question(convert_linebreaks=False):
     return all_question
 
 
-def convert_time(timestamp):
-    return time.strftime("%D %H:%M", time.localtime(int(timestamp)))
+def get_timeform_from_stamp(table, istable=True):
+    if istable:
+        for row in table:
+            row['submission_time'] = datetime.datetime.fromtimestamp(int(row['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        table['submission_time'] = datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+    return table
+
+def sorter(table, keyvalue, isreverse=False):
+    sortedtable = sorted(table, key=itemgetter(keyvalue), reverse=isreverse)
+    return sortedtable
 
 
 def get_question(question_id):

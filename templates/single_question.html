@@ -5,14 +5,7 @@
         <header>
             <h1>{{ question['title'] }}</h1>
             <small>
-                Published:
-                <time pubdate="{{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
-                                     +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
-                                     +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}">
-                    {{ question['submission_time'][:4]+'.'+question['submission_time'][4:6]+'.'
-                                     +question['submission_time'][6:8]+' --  '+question['submission_time'][8:10]+':'
-                                     +question['submission_time'][10:12]+':'+question['submission_time'][12:14]}}
-                </time>
+                Published: {{ question['submission_time'] }}
                 By: Test User
             </small>
         </header>
