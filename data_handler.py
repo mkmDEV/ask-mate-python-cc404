@@ -38,8 +38,8 @@ def get_next_id():
 def get_csv_data(one_question_id=None):
     questions = []
 
-    with open(QUESTIONS_FILE_PATH, encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
+    with open(QUESTIONS_FILE_PATH, encoding='utf-8') as csv_file:
+        reader = csv.DictReader(csv_file)
 
         for row in reader:
             user_story = dict(row)

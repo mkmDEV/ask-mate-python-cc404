@@ -3,5 +3,9 @@
 {% block title %} Questions {% endblock %}
 
 {% block content %}
-   Kérem tegyék fel kérdéseiket! :D
+   <h1><label for="new_question">Your Question: </label></h1>
+    <form action="{{ url_for('write_new_question') }}", method="post">
+        <div><br>
+            <textarea name=new_question id=new_question minlength="10" rows="10" cols="100"></textarea></div>
+        <a href="{{ url_for('post_new_question') }}"><input type="submit" id="post_question" value="Post Your Question"></a>
 {% endblock %}
