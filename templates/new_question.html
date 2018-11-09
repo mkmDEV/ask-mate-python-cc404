@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %} Questions {% endblock %}
+
+{% block content %}
+    <form action="{{ url_for('post_new_question') }}", method="post">
+        <div>
+            <h3>Question title:</h3>
+            <input type="text" name="title" id="title" minlength="5" required>
+            <br>
+            <br>
+            <h3>Your question:</h3>
+            <textarea name=message id=message minlength="10" rows="10" cols="100" required></textarea>
+            <br>
+            <br>
+            <h4>Picture (optional):</h4>
+            <input type="file" name="file" accept="image/" multiple>
+        </div>
+        <br>
+        <a href="{{ url_for('post_new_question') }}"><input type="submit" id="post_question" value="Post Your Question"></a>
+    </form>
+{% endblock %}
