@@ -67,8 +67,6 @@ def post_new_answer(question_id):
 @app.route('/question/<question_id>/')
 def delete_answer(question_id):
     pass
-    data_handler.
-    return redirect('')
 
 
 if __name__ == '__main__':

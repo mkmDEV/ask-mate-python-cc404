@@ -1,42 +1,41 @@
 {% extends 'layout.html' %}
 {% block content %}
-        <header>
-            <h1>{{ question['title'] }}</h1>
-            <small>
-                Published: {{ question['submission_time'] }}
-                By: Test User
-            </small>
-        </header>
-        <div class="container">
-            <p>{{ question['message'] }}</p>
-            <div class="btn-group btn-group-lg" role="group" aria-label="Editing buttons">
-                <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Send an Answer</button></a>
-                <a href="#" title="Not implemented YET"><button type="button" class="btn btn-outline-danger">Edit Question</button></a>
-                <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Delete Question</button></a>
+            <header>
+                <h1>{{ question['title'] }}</h1>
+                <small>
+                    Published: <time pubdate="{{ question['submission_time'] }}">{{ question['submission_time'] }}</time>
+                    By: Test User
+                </small>
+            </header>
+            <div class="container">
+                <p>{{ question['message'] }}</p>
+                <div class="btn-group btn-group-lg" role="group" aria-label="Editing buttons">
+                    <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Send an Answer</button></a>
+                    <a href="#" title="Not implemented YET"><button type="button" class="btn btn-outline-danger">Edit Question</button></a>
+                    <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Delete Question</button></a>
+                </div>
+                <table class="table table-stripped mt-5">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th class="text-center">Message</th>
+                            <th class="text-center">Submission Time</th>
+                            <th class="text-center">Vote Number</th>
+                            <th class="text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for answer in answers %}
+                        <tr>
+                            <th scope="row" align="center">{{ answer['id'] }}</th>
+                            <td align="left">{{ answer['message'] }}</td>
+                            <td align="center"><time pubdate="{{ answer['submission_time'] }}">{{ answer['submission_time'] }}</time></td>
+                            <td align="center">{{ answer['vote_number'] }}</td>
+                            <td align="right"><a href="#">
+                                <button type="button" class="btn btn-outline-danger">Delete Answer</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <table class="table table-stripped mt-5">
-                <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th class="text-center">Message</th>
-                    <th class="text-center">Submission Time</th>
-                    <th class="text-center">Vote Number</th>
-                    <th class="text-center"></th>
-                </tr>
-                </thead>
-
-                <tbody>
-                    {% for answer in answers %}
-                    <tr>
-                        <th scope="row" align="center">{{ answer['id'] }}</th>
-                        <td align="left">{{ answer['message'] }}</td>
-                        <td align="center">{{ answer['submission_time'] }}</td>
-                        <td align="center">{{ answer['vote_number'] }}</td>
-                        <td align="right"><a href="#">
-                            <button type="button" class="btn btn-outline-danger">Delete Answer</button></a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
 {% endblock content %}
