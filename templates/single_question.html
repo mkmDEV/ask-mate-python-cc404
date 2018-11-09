@@ -1,6 +1,5 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <article>
         <header>
             <h1>{{ question['title'] }}</h1>
             <small>
@@ -8,37 +7,33 @@
                 By: Test User
             </small>
         </header>
-        <div class="container single_post">
+        <div class="container">
             <p>{{ question['message'] }}</p>
             <div class="btn-group btn-group-lg" role="group" aria-label="Editing buttons">
                 <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Send an Answer</button></a>
                 <a href="#" title="Not implemented YET"><button type="button" class="btn btn-outline-danger">Edit Question</button></a>
                 <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button" class="btn btn-outline-success">Delete Question</button></a>
             </div>
-                <div class="row mt-5"></div>
-                <div class="row">
-                    <table class="table table-stripped">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Message</th>
-                            <th>Submission Time</th>
-                            <th>Vote Number</th>
-                        </tr>
-                        </thead>
+            <table class="table table-stripped mt-5">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th class="text-center">Message</th>
+                    <th class="text-center">Submission Time</th>
+                    <th class="text-center">Vote Number</th>
+                </tr>
+                </thead>
 
-                        <tbody>
-                            {% for answer in answers %}
-                            <tr>
-                                <th scope="row" align="center">{{ answer['id'] }}</th>
-                                <td align="left">{{ answer['message'] }}</td>
-                                <td align="center">{{ answer['submission_time'] }}</td>
-                                <td align="center">{{ answer['vote_number'] }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                <tbody>
+                    {% for answer in answers %}
+                    <tr>
+                        <th scope="row" align="center">{{ answer['id'] }}</th>
+                        <td align="left">{{ answer['message'] }}</td>
+                        <td align="center">{{ answer['submission_time'] }}</td>
+                        <td align="center">{{ answer['vote_number'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </article>
 {% endblock content %}
