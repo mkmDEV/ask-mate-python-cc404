@@ -56,44 +56,18 @@ def add_message_to_file(request, file='data/question.csv', q_id='0'):
         writer.writerow(fields)
 
 
-def create_updated_file(id):
-    with open('data/question.csv', 'r') as f:
+def create_updated_file(id, file, col):
+    with open(file, 'r') as f:
         with open('data/cache.csv', 'w') as f1:
             for line in f:
-                if line[0] != id:
+                if line[col] != id:
                     f1.write(line)
 
 
-def update_original_file():
+def update_original_file(file):
     with open('data/cache.csv', 'r') as f:
-        with open('data/question.csv', 'w') as f1:
+        with open(file, 'w') as f1:
             for line in f:
                 f1.write(line)
     os.remove('data/cache.csv')
 
-
-'''def create_updated_file2(id):
-    with open('data/answer.csv', 'r') as f:
-        with open('data/cache.csv', 'w') as f1:
-            for line in f:
-                print(line)
-                if line[3] == "3":
-                    print(line)
-
-
-def update_original_file2():
-    with open('data/cache.csv', 'r') as f:
-        with open('data/answer.csv', 'w') as f1:
-            for line in f:
-                f1.write(line)
-    #os.remove('data/cache.csv')
-
-
-def update():
-    with open('data/answer.csv', 'rb') as inp, open('data/cache.csv', 'wb') as out:
-        writer = csv.writer(out)
-        for row in csv.reader(inp):
-            if row[3] != "3":
-                writer.writerow(row)
-
-update()'''

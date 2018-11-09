@@ -42,8 +42,10 @@ def post_new_question():
 
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id: int):
-    data_handler.create_updated_file(question_id)
-    data_handler.update_original_file()
+    data_handler.create_updated_file(question_id, 'data/question.csv', 0)
+    data_handler.update_original_file('data/question.csv')
+    #data_handler.create_updated_file(question_id, 'data/answer.csv', 3)
+    #data_handler.update_original_file('data/answer.csv')
     return redirect('/')
 
 
@@ -64,11 +66,11 @@ def post_new_answer(question_id):
     return redirect('/question/'+question_id)
 
 
-@app.route('/question/<question_id>/')
-def delete_answer(question_id):
-    pass
-    data_handler.
-    return redirect('')
+@app.route('/question/<question_id>/answer/<answer_id>')
+def delete_answer(question_id, answer_id: int):
+    data_handler.create_updated_file(answer_id, 'data/answer.csv', 0)
+    data_handler.update_original_file('data/answer.csv')
+    return redirect('/question/' + question_id)
 
 
 if __name__ == '__main__':
