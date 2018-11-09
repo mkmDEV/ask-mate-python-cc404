@@ -21,6 +21,7 @@
                     <th class="text-center">Message</th>
                     <th class="text-center">Submission Time</th>
                     <th class="text-center">Vote Number</th>
+                    <th class="text-center"></th>
                 </tr>
                 </thead>
 
@@ -31,6 +32,8 @@
                         <td align="left">{{ answer['message'] }}</td>
                         <td align="center">{{ answer['submission_time'] }}</td>
                         <td align="center">{{ answer['vote_number'] }}</td>
+                        <td align="right"><a href="#">
+                            <button type="button" class="btn btn-outline-danger">Delete Answer</button></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -44,8 +44,6 @@ def post_new_question():
 def delete_question(question_id: int):
     data_handler.create_updated_file(question_id)
     data_handler.update_original_file()
-    #data_handler.create_updated_file2(question_id)
-    #data_handler.update_original_file2()
     return redirect('/')
 
 
@@ -64,6 +62,13 @@ def write_new_answer(question_id: int):
 def post_new_answer(question_id):
     data_handler.add_message_to_file(request.form, 'data/answer.csv', question_id)
     return redirect('/question/'+question_id)
+
+
+@app.route('/question/<question_id>/')
+def delete_answer(question_id):
+    pass
+    data_handler.
+    return redirect('')
 
 
 if __name__ == '__main__':
