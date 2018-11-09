@@ -22,12 +22,14 @@ def get_csv_data(file='data/question.csv', id=None, key=None, isquestions=True):
         return all_data
 
 
-def get_timeform_from_stamp(table, istable=True):
-    if istable:
+def get_time_form_from_stamp(table, is_table=True):
+    if is_table:
         for row in table:
-            row['submission_time'] = datetime.datetime.fromtimestamp(int(row['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+            row['submission_time'] = \
+                datetime.datetime.fromtimestamp(int(row['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        table['submission_time'] = datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+        table['submission_time'] = \
+            datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
     return table
 
 
@@ -70,30 +72,3 @@ def update_original_file():
             for line in f:
                 f1.write(line)
     os.remove('data/cache.csv')
-
-
-'''def create_updated_file2(id):
-    with open('data/answer.csv', 'r') as f:
-        with open('data/cache.csv', 'w') as f1:
-            for line in f:
-                print(line)
-                if line[3] == "3":
-                    print(line)
-
-
-def update_original_file2():
-    with open('data/cache.csv', 'r') as f:
-        with open('data/answer.csv', 'w') as f1:
-            for line in f:
-                f1.write(line)
-    #os.remove('data/cache.csv')
-
-
-def update():
-    with open('data/answer.csv', 'rb') as inp, open('data/cache.csv', 'wb') as out:
-        writer = csv.writer(out)
-        for row in csv.reader(inp):
-            if row[3] != "3":
-                writer.writerow(row)
-
-update()'''
