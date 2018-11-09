@@ -22,12 +22,14 @@ def get_csv_data(file='data/question.csv', id=None, key=None, isquestions=True):
         return all_data
 
 
-def get_timeform_from_stamp(table, istable=True):
-    if istable:
+def get_time_form_from_stamp(table, is_table=True):
+    if is_table:
         for row in table:
-            row['submission_time'] = datetime.datetime.fromtimestamp(int(row['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+            row['submission_time'] = \
+                datetime.datetime.fromtimestamp(int(row['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
     else:
-        table['submission_time'] = datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
+        table['submission_time'] = \
+            datetime.datetime.fromtimestamp(int(table['submission_time'])).strftime('%Y-%m-%d %H:%M:%S')
     return table
 
 
@@ -35,8 +37,8 @@ def get_unix_time():
     return str(calendar.timegm(time.gmtime()))
 
 
-def sorter(table, keyvalue, isreverse=True):
-    return sorted(table, key=itemgetter(keyvalue), reverse=isreverse)
+def sorter(table, keyvalue, is_reverse=True):
+    return sorted(table, key=itemgetter(keyvalue), reverse=is_reverse)
 
 
 def get_next_id(file):
@@ -70,4 +72,3 @@ def update_original_file(file):
             for line in f:
                 f1.write(line)
     os.remove('data/cache.csv')
-

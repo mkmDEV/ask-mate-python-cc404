@@ -9,7 +9,7 @@ app = Flask(__name__)
 def home():
     questions = data_handler.get_csv_data()
     questions = data_handler.sorter(questions, 'submission_time')
-    questions = data_handler.get_timeform_from_stamp(questions)
+    questions = data_handler.get_time_form_from_stamp(questions)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -18,10 +18,10 @@ def home():
 @app.route('/question/<question_id>')
 def display_question(question_id: int):
     question_data = data_handler.get_csv_data(id=question_id, key='id')
-    question_data = data_handler.get_timeform_from_stamp(question_data, False)
+    question_data = data_handler.get_time_form_from_stamp(question_data, False)
     answers = data_handler.get_csv_data('data/answer.csv', question_id, 'question_id', False)
     answers = data_handler.sorter(answers, 'submission_time')
-    answers = data_handler.get_timeform_from_stamp(answers)
+    answers = data_handler.get_time_form_from_stamp(answers)
     return render_template('single_question.html',
                            question=question_data,
                            page_title=question_data['title'],
@@ -52,7 +52,7 @@ def delete_question(question_id: int):
 @app.route('/question/<question_id>/new-answer')
 def write_new_answer(question_id: int):
     question_data = data_handler.get_csv_data(id=question_id, key='id')
-    question_data = data_handler.get_timeform_from_stamp(question_data, False)
+    question_data = data_handler.get_time_form_from_stamp(question_data, False)
     return render_template('new_answer.html',
                            question=question_data,
                            question_id=question_id,
