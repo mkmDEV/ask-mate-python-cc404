@@ -72,6 +72,26 @@ def remove_answer_from_database(cursor, answer_id):
                    {'answer_id': answer_id})
 
 
+@database_common.connection_handler
+def show_comments_for_question(cursor, question_id,):
+    cursor.execute("""SELECT message
+                      FROM comment
+                      WHERE question_id=%(question_id)s;""",
+                    {'question_id': question_id})
+    comment_all = cursor.fetchall()
+    return comment_all
+
+
+@database_common.connection_handler
+def show_comments_for_answer(cursor, answer_id,):
+    cursor.execute("""SELECT message
+                      FROM comment
+                      WHERE answer_id=%(answer_id)s;""",
+                    {'answer_id': answer_id})
+    comment_all = cursor.fetchall()
+    return comment_all
+
+
 def get_time_form_from_stamp(table, is_table=True):
     if is_table:
         for row in table:
