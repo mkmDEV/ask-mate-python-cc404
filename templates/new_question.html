@@ -10,7 +10,7 @@
             <h3>Your question:</h3>
             <textarea name=message id=message minlength="10" rows="10" cols="100" required></textarea>
             <h4>Picture (optional):</h4>
-            <input type="file" name="file" accept="image/" multiple>
+            <input type="file" name="image" accept="image/" multiple>
         </div>
         <br>
         <a href="{{ url_for('post_new_question') }}"><input type="submit" id="post_question" value="Post Your Question"></a>
