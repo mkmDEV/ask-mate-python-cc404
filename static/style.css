@@ -1,0 +1,90 @@
+.content-wrapper {
+    padding: 5%;
+    margin: auto;
+}
+
+body {
+    background-image: radial-gradient(circle, cadetblue, steelblue);
+    font-family: "Fira Code Medium", 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+    font-size: 20px;
+    color: #333333;
+}
+
+h1 {
+    font-style: italic;
+    text-shadow: 2px 2px 5px black;
+    text-align: center;
+    font-size: 50px;
+    float: bottom;
+}
+
+table {
+    margin-left: 10%;
+}
+
+th {
+
+}
+
+#logo {
+    height: 150px;
+    float: left;
+    clear: right;
+}
+
+button {
+    background-color: lightsteelblue;
+    width: 15%;
+    padding: 0.5% 1% 0.5% 1%;
+    margin: 0.5% 1% 0.5% 1%;
+    border-radius: 25px;
+    border-color: steelblue;
+    transition-duration: 0.5s;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #555555;
+    color: beige;
+}
+
+a:link {
+    color: black;
+}
+a:visited {
+    color: #333333;
+}
+
+.form {
+    margin-left: 30%;
+}
+
+.form input {
+    resize: horizontal;
+    resize: vertical;
+    width: 500px;
+    height: 30px;
+    font-size: 20px;
+    }
+
+.form textarea {
+    resize: horizontal;
+    resize: vertical;
+    width: 500px;
+}
+
+#post_question {
+    margin-left: 30%;
+    background-color: lightsteelblue;
+    width: 15%;
+    padding: 0.5% 1% 0.5% 1%;
+    border-radius: 25px;
+    border-color: steelblue;
+    transition-duration: 0.5s;
+    font-size: 18px;
+}
+
+#post_question:hover {
+    background-color: #555555;
+    color: beige;
+}

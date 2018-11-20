@@ -6,7 +6,7 @@
     <h1>{{ page_title }}</h1>
     {%  for question in question %}
     <form action="{{ url_for('post_new_answer', question_id=question['id']) }}", method="post">
-        <div>
+        <div class="form">
             <h4>Your answer: </h4>
             <textarea name=message id=message minlength="10" rows="10" cols="100" requiredgit ></textarea>
         </div>
