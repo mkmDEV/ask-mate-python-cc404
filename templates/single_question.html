@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
             <header>
-                <h1>{{ question['title'] }}</h1>
+                <h1>{{ title }}</h1>
                 <small>
+                {% for question in question %}
                     Published: <time pubdate="{{ question['submission_time'] }}">{{ question['submission_time'] }}</time>
                     By: Test User
                 </small>
@@ -27,14 +28,15 @@
                     <tbody>
                         {% for answer in answers %}
                         <tr>
-                            <th scope="row" align="center">{{ answer['id'] }}</th>
-                            <td align="left">{{ answer['message'] }}</td>
-                            <td align="center"><time pubdate="{{ answer['submission_time'] }}">{{ answer['submission_time'] }}</time></td>
-                            <td align="center">{{ answer['vote_number'] }}</td>
+                            <th scope="row" align="center">{{ answer.id }}</th>
+                            <td align="left">{{ answer.message }}</td>
+                            <td align="center"><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
+                            <td align="center">{{ answer.vote_number }}</td>
                             <td align="right"><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
                                 <button type="button" class="btn btn-outline-danger">Delete Answer</button></a></td>
                         </tr>
                         {% endfor %}
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
