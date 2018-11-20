@@ -92,6 +92,12 @@ def show_comments_for_answer(cursor, answer_id,):
     return comment_all
 
 
+@database_common.connection_handler
+def add_comment(cursor, new_comment):
+    cursor.execute("""INSERT INTO comment
+                      VALUES '<new_comment>';""")
+
+
 def get_time_form_from_stamp(table, is_table=True):
     if is_table:
         for row in table:
