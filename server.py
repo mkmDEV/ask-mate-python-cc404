@@ -18,12 +18,13 @@ def home():
 @app.route('/question/<question_id>')
 def display_question(question_id):
     question_data = data_handler.show_question_by_id(question_id)
-    print(question_data)
+    comments = data_handler.show_comments_for_question(question_id)
     answers = data_handler.show_answers(question_id)
     title = data_handler.get_question_title(question_id)
     return render_template('single_question.html',
                            question=question_data,
                            page_title=title,
+                           comments=comments,
                            answers=answers,
                            )
 
