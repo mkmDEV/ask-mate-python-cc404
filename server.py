@@ -51,7 +51,6 @@ def delete_question(question_id: int):
 def write_new_answer(question_id):
     question_data = data_handler.add_message(question_id)
     question_data = data_handler.get_time_form_from_stamp(question_data, False)
-    title = data_handler.get_question_title(question_id)
     return render_template('new_answer.html',
                            question=question_data,
                            question_id=question_id,
@@ -69,6 +68,24 @@ def post_new_answer(question_id):
 @app.route('/question/<question_id>/answer/<answer_id>')
 def delete_answer(question_id, answer_id: int):
     data_handler.remove_answer_from_database(answer_id)
+    return redirect('/question/' + question_id)
+
+
+@app.route('/question/<question_id>/new-comment')
+def write_new_comment(question_id):
+    comment_data = data_handler.add_comment(question_id)
+    comment_data = data_handler.get_time_form_from_stamp(question_data, False)
+    return render_template('new_comment.html',
+                           page_title='Add new comment',
+                           question_id=question_id,
+                           comment=comment_data,
+                           )
+
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def post_new_comment(question_id):
+    new_comment = dict(request.form)
+    data_handler.add_comment(question_id, new_comment)
     return redirect('/question/' + question_id)
 
 
