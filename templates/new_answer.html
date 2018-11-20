@@ -4,13 +4,11 @@
 
 {% block content %}
     <h1>{{ page_title }}</h1>
-    {%  for question in question %}
-    <form action="{{ url_for('post_new_answer', question_id=question['id']) }}", method="post">
+    <form action="{{ url_for('post_new_answer', question_id=question_id) }}", method="post">
         <div>
             <h4>Your answer: </h4>
-            <textarea name=message id=message minlength="10" rows="10" cols="100" requiredgit ></textarea>
+            <textarea name=message id=message minlength="10" rows="10" cols="100" required ></textarea>
         </div>
-        <a href="{{ url_for('post_new_answer', question_id=question['id']) }}"><input type="submit" id="post_answer" value="Post Your Answer"></a>
+        <a href="{{ url_for('post_new_answer', question_id=question_id) }}"><input type="submit" id="post_answer" value="Post Your Answer"></a>
     </form>
-    {% endfor %}
 {% endblock %}
