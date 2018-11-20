@@ -8,8 +8,6 @@ app = Flask(__name__)
 @app.route('/list')
 def home():
     questions = data_handler.show_questions()
-    #questions = data_handler.sorter(questions, 'submission_time')
-    #questions = data_handler.get_time_form_from_stamp(questions)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -18,14 +16,12 @@ def home():
 @app.route('/question/<question_id>')
 def display_question(question_id):
     question_data = data_handler.show_question_by_id(question_id)
-    print(question_data)
+    title = question_data[0]['title']
     answers = data_handler.show_answers(question_id)
-    title = data_handler.get_question_title(question_id)
     return render_template('single_question.html',
                            question=question_data,
                            page_title=title,
-                           answers=answers,
-                           )
+                           answers=answers,)
 
 
 @app.route('/new-question')
@@ -42,27 +38,25 @@ def post_new_question():
 
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id: int):
-    data_handler.remove_question(question_id)
+    data_handler.remove_question_from_database(question_id)
     return redirect('/')
 
 
 @app.route('/question/<question_id>/new-answer')
-def write_new_answer(question_id):
-    question_data = data_handler.add_message(question_id)
-    question_data = data_handler.get_time_form_from_stamp(question_data, False)
-    title = data_handler.get_question_title(question_id)
+def write_new_answer(question_id: int):
+    question_data = data_handler.show_question_by_id(question_id)
+    title = question_data[0]['title']
     return render_template('new_answer.html',
-                           question=question_data,
                            question_id=question_id,
-                           page_title=title
-                           )
+                           page_title=title)
 
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
-def post_new_answer(question_id):
+def post_new_answer(question_id: int):
     new_answer = dict(request.form)
-    data_handler.add_question(question_id, new_answer)
-    return redirect('/question/' + question_id)
+    print(new_answer)
+    data_handler.add_message(question_id, new_answer)
+    return redirect('/question/' + str(question_id))
 
 
 @app.route('/question/<question_id>/answer/<answer_id>')
