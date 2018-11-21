@@ -44,16 +44,6 @@
                             <td><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
                                 <button type="button" id="delete_button">Delete Answer</button></a></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                             <td colspan="3"><ul>{% for comment in comments %}
-                                    {% if comment.answer_id == answer.id%}
-                                        <li>{{ comment.message }}  <a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button type="button">Delete comment</button></a> <a href="#" title="Not implemented YET"><button type="button">Edit comment</button></a></li>
-                                    {% endif %}
-                                {% endfor %}
-                                </ul></td>
-                            <td></td>
-                        </tr>
                         {% endfor %}
                     {% endfor %}
                     </tbody>
