@@ -10,7 +10,15 @@
             </header>
             <div class="container">
                 <p>{{ question['message'] }}</p>
-                    {% include 'question_comment.html' %}
+                    <section id="question-comments" class="comments">
+                        <h5>Comments area <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a></h5>
+                        <ul>{% for comment in comments %}
+                            {% if comment.question_id %}
+                                <li>{{ comment.message }}  <a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button type="button">Delete comment</button></a> <a href="#" title="Not implemented YET"><button type="button">Edit comment</button></a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </section>
                 <div role="group" aria-label="Editing buttons">
                     <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button">Send an Answer</button></a>
                     <a href="#" title="Not implemented YET"><button type="button">Edit Question</button></a>
@@ -35,6 +43,16 @@
                             <td>{{ answer.vote_number }}</td>
                             <td><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
                                 <button type="button" id="delete_button">Delete Answer</button></a></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                             <td colspan="3"><ul>{% for comment in comments %}
+                                    {% if comment.answer_id == answer.id%}
+                                        <li>{{ comment.message }}  <a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button type="button">Delete comment</button></a> <a href="#" title="Not implemented YET"><button type="button">Edit comment</button></a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul></td>
+                            <td></td>
                         </tr>
                         {% endfor %}
                     {% endfor %}
