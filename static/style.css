@@ -52,7 +52,6 @@ table {
 #logo {
     height: 150px;
     float: left;
-    clear: right;
 }
 
 button {
@@ -145,6 +144,7 @@ fieldset textarea {
 #search_image {
     height: 30px;
     float: right;
+    margin: 3px;
 }
 
 #search {
@@ -152,5 +152,6 @@ fieldset textarea {
     height: 30px;
     float: right;
     border-color: #428bca;
+    font-size: 20px;
 }
 
