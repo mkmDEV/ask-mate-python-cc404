@@ -16,12 +16,15 @@ def home():
 @app.route('/question/<question_id>')
 def display_question(question_id):
     question_data = data_handler.show_question_by_id(question_id)
-    title = question_data[0]['title']
+    comments = data_handler.show_comments_for_question(question_id)
     answers = data_handler.show_answers(question_id)
+    title = question_data[0]['title']
     return render_template('single_question.html',
                            question=question_data,
                            page_title=title,
-                           answers=answers,)
+                           comments=comments,
+                           answers=answers,
+                           )
 
 
 @app.route('/new-question')
@@ -66,9 +69,8 @@ def delete_answer(question_id, answer_id: int):
 
 
 @app.route('/question/<question_id>/new-comment')
-def write_new_comment(question_id):
-    comment_data = data_handler.add_comment(question_id)
-    comment_data = data_handler.get_time_form_from_stamp(question_data, False)
+def write_new_comment(question_id: int):
+    comment_data = data_handler.show_question_by_id(question_id)
     return render_template('new_comment.html',
                            page_title='Add new comment',
                            question_id=question_id,
@@ -80,6 +82,12 @@ def write_new_comment(question_id):
 def post_new_comment(question_id):
     new_comment = dict(request.form)
     data_handler.add_comment(question_id, new_comment)
+    return redirect('/question/' + question_id)
+
+
+@app.route('/question/<question_id>/delete-comment/<comment_id>')
+def delete_comment(question_id, comment_id: int):
+    data_handler.remove_comment(comment_id)
     return redirect('/question/' + question_id)
 
 

@@ -88,3 +88,15 @@ a:visited {
     background-color: #555555;
     color: beige;
 }
+
+fieldset {
+    min-width: 200px;
+    max-width: 60%;
+    padding: 2vw 2vw;
+}
+
+fieldset textarea {
+    display: block;
+    width: 100%;
+
+}
