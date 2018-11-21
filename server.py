@@ -23,7 +23,7 @@ def qlist():
 @app.route('/question/<question_id>')
 def display_question(question_id):
     question_data = data_handler.show_question_by_id(question_id)
-    comments = data_handler.show_comments_for_question(question_id)
+    comments = data_handler.show_comments()
     answers = data_handler.show_answers(question_id)
     title = question_data[0]['title']
     return render_template('single_question.html',
@@ -99,6 +99,18 @@ def post_new_comment(question_id):
 def delete_comment(question_id, comment_id: int):
     data_handler.remove_comment(comment_id)
     return redirect('/question/' + question_id)
+
+
+@app.route('/answer/<answer_id>/new-comment')
+def write_new_comment_for_answers(answer_id):
+    answer_data = data_handler.show_answers(answer_id)
+    comment_data = data_handler.show_answers(answer_id)
+    return render_template('new_answer_comment.html',
+                           page_title='Add new comment',
+                           answer_id=answer_id,
+                           answer=answer_data,
+                           comment=comment_data,
+                           )
 
 
 if __name__ == '__main__':
