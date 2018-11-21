@@ -2,8 +2,9 @@ import database_common
 
 
 @database_common.connection_handler
-def show_questions(cursor):
-    cursor.execute("""SELECT * FROM question;""")
+def show_questions(cursor, limit=5):
+    cursor.execute("""SELECT * FROM question ORDER BY submission_time DESC LIMIT %(limit)s""",
+                   {'limit': limit})
     question_all = cursor.fetchall()
     return question_all
 
@@ -56,7 +57,7 @@ def remove_answer_from_database(cursor, answer_id):
 
 @database_common.connection_handler
 def show_comments_for_question(cursor, question_id, ):
-    cursor.execute("""SELECT message
+    cursor.execute("""SELECT *
                       FROM comment
                       WHERE question_id=%(question_id)s;""",
                    {'question_id': question_id})
@@ -66,7 +67,7 @@ def show_comments_for_question(cursor, question_id, ):
 
 @database_common.connection_handler
 def show_comments_for_answer(cursor, answer_id, ):
-    cursor.execute("""SELECT message
+    cursor.execute("""SELECT *
                       FROM comment
                       WHERE answer_id=%(answer_id)s;""",
                    {'answer_id': answer_id})
@@ -78,14 +79,14 @@ def show_comments_for_answer(cursor, answer_id, ):
 def add_comment_for_question(cursor, question_id, new_comment):
     cursor.execute("""INSERT INTO comment (message, question_id)
                       VALUES (%(message)s, %(question_id)s);""",
-                   {'message': new_comment['message'][0], 'question_id': question_id})
+                   {'message': new_comment['message'], 'question_id': question_id})
 
 
 @database_common.connection_handler
 def add_comment_for_answer(cursor, answer_id, new_comment):
     cursor.execute("""INSERT INTO comment (message, answer_id)
                       VALUES (%(message)s, %(answer_id)s);""",
-                   {'message': new_comment['message'][0], 'answer_id': answer_id})
+                   {'message': new_comment['message'], 'answer_id': answer_id})
 
 
 @database_common.connection_handler
