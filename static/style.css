@@ -22,6 +22,13 @@ h2 {
     margin-bottom: 80px;
     text-align: center;
 }
+
+p {
+    background-color: rgba(95, 158, 160, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+}
+
 table {
     margin-left: 5%;
     text-align: center;
@@ -67,7 +74,8 @@ button:hover {
 #delete_button {
     width: 70%;
     border-radius: 25px;
-    font-size: 16px;
+    font-size: 15px;
+    padding: 5% 1% 5% 1%;
 }
 
 #delete_button:hover {
@@ -132,5 +140,17 @@ fieldset {
 fieldset textarea {
     display: block;
     width: 100%;
-
 }
+
+#search_image {
+    height: 30px;
+    float: right;
+}
+
+#search {
+    resize: horizontal;
+    height: 30px;
+    float: right;
+    border-color: #428bca;
+}
+
