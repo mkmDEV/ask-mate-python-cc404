@@ -2,8 +2,9 @@ import database_common
 
 
 @database_common.connection_handler
-def show_questions(cursor):
-    cursor.execute("""SELECT * FROM question;""")
+def show_questions(cursor, limit=5):
+    cursor.execute("""SELECT * FROM question ORDER BY submission_time DESC LIMIT %(limit)s""",
+                   {'limit': limit})
     question_all = cursor.fetchall()
     return question_all
 

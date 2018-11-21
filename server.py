@@ -5,9 +5,16 @@ app = Flask(__name__)
 
 
 @app.route('/')
-@app.route('/list')
 def home():
     questions = data_handler.show_questions()
+    return render_template('list.html',
+                           questions=questions,
+                           page_title='Welcome to AskMate!')
+
+
+@app.route('/list')
+def qlist():
+    questions = data_handler.show_questions(None)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
