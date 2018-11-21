@@ -2,17 +2,29 @@ import database_common
 
 
 @database_common.connection_handler
-def show_questions(cursor, limit=5):
-    cursor.execute("""SELECT * FROM question ORDER BY submission_time DESC LIMIT %(limit)s""",
-                   {'limit': limit})
+def show_questions(cursor, limit=5, search=False):
+    if search is False:
+        cursor.execute("""SELECT * FROM question 
+                          ORDER BY submission_time
+                          DESC LIMIT %(limit)s""",
+                       {'limit': limit})
+    else:
+        cursor.execute("""SELECT * FROM question 
+                          WHERE title=%(search)s
+                          ORDER BY submission_time
+                          DESC LIMIT %(limit)s""",
+                       {'limit': limit, 'search': search})
     question_all = cursor.fetchall()
     return question_all
 
 
 @database_common.connection_handler
 def show_question_by_id(cursor, question_id):
-    cursor.execute("""SELECT * FROM question
-                    WHERE id=%(question_id)s;""",
+    cursor.execute("""UPDATE question
+                      SET view_number = view_number + 1
+                      WHERE id=%(question_id)s;
+                      SELECT * FROM question
+                      WHERE id=%(question_id)s;""",
                    {'question_id': question_id})
     question_by_id = cursor.fetchall()
     return question_by_id
