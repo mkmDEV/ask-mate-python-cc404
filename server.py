@@ -31,6 +31,7 @@ def display_question(question_id):
                            page_title=title,
                            comments=comments,
                            answers=answers,
+                           title=title,
                            )
 
 
@@ -76,11 +77,13 @@ def delete_answer(question_id, answer_id: int):
 
 
 @app.route('/question/<question_id>/new-comment')
-def write_new_comment(question_id: int):
+def write_new_comment(question_id):
+    question_data = data_handler.show_question_by_id(question_id)
     comment_data = data_handler.show_question_by_id(question_id)
     return render_template('new_comment.html',
                            page_title='Add new comment',
                            question_id=question_id,
+                           question=question_data,
                            comment=comment_data,
                            )
 
@@ -88,7 +91,7 @@ def write_new_comment(question_id: int):
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def post_new_comment(question_id):
     new_comment = dict(request.form)
-    data_handler.add_comment(question_id, new_comment)
+    data_handler.add_comment_for_question(question_id, new_comment)
     return redirect('/question/' + question_id)
 
 
