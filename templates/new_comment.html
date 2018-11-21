@@ -1,25 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-
-{#    <form action="{{ url_for('post_new_comment', question_id=question['id']) }}", method="post">#}
-{#        <div>#}
-{#            <h4>Your comment: </h4>#}
-{#            <textarea name=message id=message minlength="10" rows="10" cols="100" requiredgit ></textarea>#}
-{#        </div>#}
-{#        <a href="{{ url_for('post_new_comment', question_id=question['id']) }}"><input type="submit" id="post_comment" value="Comment"></a>#}
-{#    </form>#}
-        <form action="" method="post">
-            <fieldset>
-                <legend><h1>{{ page_title }}</h1></legend>
-            <input type="hidden" name="id" value="{{ comment['id'] }}">
-
-            <div>
-                <label for="comment">Comment:</label><br />
-                <textarea name="message" id="message" cols="40" rows="6" required>{{ comment['message']|safe }}</textarea>
-            </div>
-
-            <div><button type="submit">Post comment</button></div>
-            </fieldset>
-        </form>
+       <form action="{{ url_for('post_new_comment', question_id=question_id) }}", method="post">
+        <div>
+            <h4>Your Comment </h4>
+            <textarea name=message id=message minlength="10" rows="10" cols="100" required ></textarea>
+        </div>
+        <a href="{{ url_for('post_new_comment', question_id=question_id) }}"><input type="submit" id="post_comment" value="Post comment"></a>
+    </form>
 {% endblock %}
