@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    questions = data_handler.show_questions()
+    questions = data_handler.show_questions(None)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -14,15 +14,16 @@ def home():
 
 @app.route('/list')
 def q_list():
-    questions = data_handler.show_questions(None)
+    questions = data_handler.show_questions(None, None)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
 
 
-@app.route('/search')
-def search(search):
-    questions = data_handler.show_questions(search=search)
+@app.route('/search', methods=['POST'])
+def search():
+    search = "%"+request.form['search']+"%"
+    questions = data_handler.show_questions(search, None)
     return render_template('list.html',
                            questions=questions,
                            page_title='Search results:')

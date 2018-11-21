@@ -2,15 +2,16 @@ import database_common
 
 
 @database_common.connection_handler
-def show_questions(cursor, limit=5, search=False):
-    if search is False:
+def show_questions(cursor, search, limit=5):
+    if search is None:
         cursor.execute("""SELECT * FROM question 
                           ORDER BY submission_time
                           DESC LIMIT %(limit)s""",
                        {'limit': limit})
     else:
         cursor.execute("""SELECT * FROM question 
-                          WHERE title=%(search)s
+                          WHERE LOWER(title) LIKE LOWER(%(search)s) OR
+                                LOWER(message) LIKE LOWER(%(search)s)
                           ORDER BY submission_time
                           DESC LIMIT %(limit)s""",
                        {'limit': limit, 'search': search})
