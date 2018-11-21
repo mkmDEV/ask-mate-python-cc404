@@ -5,22 +5,22 @@
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Submission Time</th>
-            <th>View Number</th>
-            <th>Vote Number</th>
+            <th id="th_id">ID</th>
+            <th id="th_message">Message</th>
+            <th id="th_submission_time">Submission Time</th>
+            <th id="th_view_number">View Number</th>
+            <th id="th_vote_number">Vote Number</th>
         </tr>
         </thead>
 
         <tbody>
             {% for question in questions %}
             <tr>
-                <th scope="row" align="center">{{ question['id'] }}</th>
-                <td align="left"><a href="{{ url_for('display_question', question_id=question['id']) }}">{{ question['title'] }}</td>
-                <td align="center">{{ question['submission_time'] }}</td>
-                <td align="center">{{ question['view_number'] }}</td>
-                <td align="center">{{ question['vote_number'] }}</td>
+                <th>{{ question['id'] }}</th>
+                <td id="td_message"><a href="{{ url_for('display_question', question_id=question['id']) }}">{{ question['title'] }}</td>
+                <td>{{ question['submission_time'] }}</td>
+                <td>{{ question['view_number'] }}</td>
+                <td>{{ question['vote_number'] }}</td>
             </tr>
             {% endfor %}
         </tbody>

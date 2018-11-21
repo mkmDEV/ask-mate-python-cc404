@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
             <header>
-                <h1>{{ title }}</h1>
+                <h2>{{ title }}</h2>
                 <small>
                 {% for question in question %}
                     Published: <time pubdate="{{ question['submission_time'] }}">{{ question['submission_time'] }}</time>
@@ -10,8 +10,8 @@
             </header>
             <div class="container">
                 <p>{{ question['message'] }}</p>
+                <div class="editing_buttons" role="group" aria-label="Editing buttons">
                     {% include 'comment.html' %}
-                <div role="group" aria-label="Editing buttons">
                     <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button">Send an Answer</button></a>
                     <a href="#" title="Not implemented YET"><button type="button">Edit Question</button></a>
                     <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button">Delete Question</button></a>
@@ -19,22 +19,22 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th class="text-center">Message</th>
-                            <th class="text-center">Submission Time</th>
-                            <th class="text-center">Vote Number</th>
-                            <th class="text-center"></th>
+                            <th id="th_id">ID</th>
+                            <th id="th_message">Message</th>
+                            <th id="th_submission_time">Submission Time</th>
+                            <th id="th_vote_number">Vote Number</th>
+                            <th id="th_delete"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for answer in answers %}
                         <tr>
-                            <th scope="row" align="center">{{ answer.id }}</th>
-                            <td align="left">{{ answer.message }}</td>
-                            <td align="center"><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
-                            <td align="center">{{ answer.vote_number }}</td>
-                            <td align="right"><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
-                                <button type="button">Delete Answer</button></a></td>
+                            <th>{{ answer.id }}</th>
+                            <td id="td_message">{{ answer.message }}</td>
+                            <td><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
+                            <td>{{ answer.vote_number }}</td>
+                            <td><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
+                                <button type="button" id="delete_button">Delete Answer</button></a></td>
                         </tr>
                         {% endfor %}
                     {% endfor %}
