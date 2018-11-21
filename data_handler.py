@@ -56,7 +56,7 @@ def remove_answer_from_database(cursor, answer_id):
 
 @database_common.connection_handler
 def show_comments_for_question(cursor, question_id, ):
-    cursor.execute("""SELECT message
+    cursor.execute("""SELECT *
                       FROM comment
                       WHERE question_id=%(question_id)s;""",
                    {'question_id': question_id})
@@ -66,7 +66,7 @@ def show_comments_for_question(cursor, question_id, ):
 
 @database_common.connection_handler
 def show_comments_for_answer(cursor, answer_id, ):
-    cursor.execute("""SELECT message
+    cursor.execute("""SELECT *
                       FROM comment
                       WHERE answer_id=%(answer_id)s;""",
                    {'answer_id': answer_id})

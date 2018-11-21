@@ -10,7 +10,7 @@
             </header>
             <div class="container">
                 <p>{{ question['message'] }}</p>
-                    {% include 'comment.html' %}
+                    {% include 'question_comment.html' %}
                 <div role="group" aria-label="Editing buttons">
                     <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button">Send an Answer</button></a>
                     <a href="#" title="Not implemented YET"><button type="button">Edit Question</button></a>
