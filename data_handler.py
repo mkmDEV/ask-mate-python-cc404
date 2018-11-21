@@ -75,6 +75,20 @@ def show_comments_for_answer(cursor, answer_id, ):
 
 
 @database_common.connection_handler
-def add_comment(cursor, new_comment):
-    cursor.execute("""INSERT INTO comment
-                      VALUES '<new_comment>';""")
+def add_comment_for_question(cursor, question_id, new_comment):
+    cursor.execute("""INSERT INTO comment (message, question_id)
+                      VALUES (%(message)s, %(question_id)s);""",
+                   {'message': new_comment['message'][0], 'question_id': question_id})
+
+
+@database_common.connection_handler
+def add_comment_for_answer(cursor, answer_id, new_comment):
+    cursor.execute("""INSERT INTO comment (message, answer_id)
+                      VALUES (%(message)s, %(answer_id)s);""",
+                   {'message': new_comment['message'][0], 'answer_id': answer_id})
+
+
+@database_common.connection_handler
+def remove_comment(cursor, comment_id):
+    cursor.execute("""DELETE FROM comment WHERE id=%(comment_id)s;""",
+                   {'comment_id': comment_id})
