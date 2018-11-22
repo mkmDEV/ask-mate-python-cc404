@@ -18,6 +18,7 @@ def show_questions(cursor, search, limit=5):
     question_all = cursor.fetchall()
     return question_all
 
+
 @database_common.connection_handler
 def sort(cursor):
     for key in request.args:
@@ -66,14 +67,16 @@ def add_message(cursor, question_id, new_answer):
 
 @database_common.connection_handler
 def remove_question_from_database(cursor, question_id):
-    cursor.execute("""DELETE FROM answer WHERE question_id=%(question_id)s;
+    cursor.execute("""DELETE FROM comment WHERE question_id=%(question_id)s;
+                      DELETE FROM answer WHERE question_id=%(question_id)s;
                       DELETE FROM question WHERE id=%(question_id)s;""",
                    {'question_id': question_id})
 
 
 @database_common.connection_handler
 def remove_answer_from_database(cursor, answer_id):
-    cursor.execute("""DELETE FROM answer WHERE id=%(answer_id)s;""",
+    cursor.execute("""DELETE FROM comment WHERE answer_id=%(answer_id)s;
+                      DELETE FROM answer WHERE id=%(answer_id)s;""",
                    {'answer_id': answer_id})
 
 
