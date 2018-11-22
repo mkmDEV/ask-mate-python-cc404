@@ -18,6 +18,7 @@ def show_questions(cursor, search, limit=5):
     question_all = cursor.fetchall()
     return question_all
 
+
 @database_common.connection_handler
 def sort(cursor):
     for key in request.args:
