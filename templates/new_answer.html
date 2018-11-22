@@ -5,7 +5,7 @@
 {% block content %}
     <h2>{{ page_title }}</h2>
     <form action="{{ url_for('post_new_answer', question_id=question_id) }}", method="post">
-        <div >
+        <div class="form">
             <h3>Your answer: </h3>
             <textarea name=message id="message" minlength="10" rows="10" cols="100" required ></textarea>
         </div>

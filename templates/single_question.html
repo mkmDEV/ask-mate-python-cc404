@@ -14,13 +14,15 @@
                         <h5>Comments area <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a></h5>
                         <table>
                         {% for comment in comments %}
-                            <tr>
+
                             {% if comment.question_id == question.id %}
+                                <tr>
                                 <td id="td_comment_message" >{{ comment.message }}</td>
                                 <td><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a></td>
                                 <td><a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
-                            {% endif %}
                             </tr>
+                            {% endif %}
+
                             {% endfor %}
 
                         </table>
@@ -56,13 +58,16 @@
                              <td colspan="3">
                                  <table>
                                  {% for comment in comments %}
-                                     <tr>
+
+
                                     {% if comment.answer_id == answer.id%}
-                                        <td id="td_message">{{ comment.message }}</td>
+                                        <tr>
+                                        <td id="td_comment_message">{{ comment.message }}</td>
                                         <td ><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a>
                                             <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
+                                        </tr>
                                     {% endif %}
-                                     </tr>
+
                                 {% endfor %}
                                 </table></td>
                             <td></td>
