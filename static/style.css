@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.container {
+    margin-left: 5%;
+}
+
 body {
     background-image: radial-gradient(circle, cadetblue, steelblue);
     font-family: "Fira Code Medium", 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
@@ -65,28 +69,22 @@ button {
     font-size: 18px;
 }
 
-button:hover {
+button:hover, #delete_button:hover, #post_question:hover {
     background-color: #555555;
     color: beige;
 }
 
 #delete_button {
     width: 70%;
-    border-radius: 25px;
     font-size: 15px;
     padding: 5% 1% 5% 1%;
 }
 
-#delete_button:hover {
-    background-color: #555555;
-    color: beige;
-}
-
-.container button {
+.container button, #new_comment_button {
     width: 10%;
     padding: 0.1% 0.2% 0.1% 0.2%;
     margin: 0.1% 0.2% 0.1% 0.2%;
-    font-size: 15px;
+    font-size: 1em;
 }
 
 a:link {
@@ -152,6 +150,3 @@ fieldset textarea {
     font-size: 20px;
 }
 
-.container {
-    margin-left: 5%;
-}
