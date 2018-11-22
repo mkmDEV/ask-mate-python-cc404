@@ -53,8 +53,8 @@ def show_answers(cursor, question_id):
 def add_question(cursor, new_question):
     cursor.execute("""INSERT INTO question (title, message, image) 
                       VALUES (%(title)s, %(message)s, %(image)s);""",
-                   {'title': new_question['title'][0], 'message': new_question['message'][0],
-                    'image': new_question['image'][0]})
+                   {'title': new_question['title'], 'message': new_question['message'],
+                    'image': new_question['image']})
 
 
 @database_common.connection_handler
