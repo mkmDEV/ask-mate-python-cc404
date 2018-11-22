@@ -2,15 +2,20 @@
 {% block content %}
     <h1>{{ page_title }}</h1>
     <a href="{{ url_for('post_new_question') }}"><button>Add new Question</button></a>
-    <a href="{{ url_for('q_list') }}"><button>Show all question</button></a>
+    <a href="{{ url_for('sort_questions', submission_time="desc") }}"><button>Show all question</button></a>
     <table>
         <thead>
         <tr>
-            <th id="th_id">ID</th>
-            <th id="th_message">Message</th>
-            <th id="th_submission_time">Submission Time</th>
-            <th id="th_view_number">View Number</th>
-            <th id="th_vote_number">Vote Number</th>
+            <th id="th_id">ID<a href={{url_for( 'sort_questions', id="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', id="desc" )}}>&#9660; </a></th>
+            <th id="th_message">Message<a href={{url_for( 'sort_questions', message="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', message="desc" )}}>&#9660; </a></th>
+            <th id="th_submission_time">Submission Time<a href={{url_for( 'sort_questions', submission_time="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', submission_time="desc" )}}>&#9660; </a></th>
+            <th id="th_view_number">Views<a href={{url_for( 'sort_questions', view_number="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', view_number="desc" )}}>&#9660; </a></th>
+            <th id="th_vote_number">Votes<a href={{url_for( 'sort_questions', vote_number="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', vote_number="desc" )}}>&#9660; </a></th>
         </tr>
         </thead>
 

@@ -1,4 +1,5 @@
 import database_common
+from flask import request
 
 
 @database_common.connection_handler
@@ -6,8 +7,7 @@ def show_questions(cursor, search, limit=5):
     if search is None:
         cursor.execute("""SELECT * FROM question 
                           ORDER BY submission_time
-                          DESC LIMIT %(limit)s""",
-                       {'limit': limit})
+                          DESC LIMIT 5""")
     else:
         cursor.execute("""SELECT * FROM question 
                           WHERE LOWER(title) LIKE LOWER(%(search)s) OR
@@ -17,6 +17,15 @@ def show_questions(cursor, search, limit=5):
                        {'limit': limit, 'search': search})
     question_all = cursor.fetchall()
     return question_all
+
+@database_common.connection_handler
+def sort(cursor):
+    for key in request.args:
+        criteria = key
+        order = request.args.get(key)
+    cursor.execute(f"SELECT * FROM question ORDER BY {criteria} {order}")
+    question_sorted = cursor.fetchall()
+    return question_sorted
 
 
 @database_common.connection_handler

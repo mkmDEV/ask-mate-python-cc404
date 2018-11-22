@@ -12,9 +12,9 @@ def home():
                            page_title='Welcome to AskMate!')
 
 
-@app.route('/list')
-def q_list():
-    questions = data_handler.show_questions(None, None)
+@app.route('/list', methods=['GET', 'POST'])
+def sort_questions():
+    questions = data_handler.sort()
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -23,7 +23,7 @@ def q_list():
 @app.route('/search', methods=['POST'])
 def search():
     search = "%"+request.form['search']+"%"
-    questions = data_handler.show_questions(search, None)
+    questions = data_handler.show_questions(search)
     return render_template('list.html',
                            questions=questions,
                            page_title='Search results:')
