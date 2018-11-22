@@ -9,14 +9,14 @@
                 </small>
             </header>
             <div class="container">
-                <p>{{ question['message'] }}</p>
+                <pre>{{ question['message'] }}</pre>
                     <section id="question-comments" class="comments">
                         <h5>Comments area <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a></h5>
                         <table>
                         {% for comment in comments %}
                             <tr>
                             {% if comment.question_id == question.id %}
-                                <td id="td_message" >{{ comment.message }}</td>
+                                <td id="td_comment_message" >{{ comment.message }}</td>
                                 <td><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a></td>
                                 <td><a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
                             {% endif %}
@@ -44,7 +44,7 @@
                         {% for answer in answers %}
                         <tr>
                             <th>{{ answer.id }}</th>
-                            <td id="td_message"><p>{{ answer.message }}</p></td>
+                            <td id="td_message"><pre>{{ answer.message }}</pre></td>
                             <td><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
                             <td>{{ answer.vote_number }}</td>
                             <td><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
@@ -59,7 +59,7 @@
                                      <tr>
                                     {% if comment.answer_id == answer.id%}
                                         <td id="td_message">{{ comment.message }}</td>
-                                        <td><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a>
+                                        <td ><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a>
                                             <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
                                     {% endif %}
                                      </tr>
