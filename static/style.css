@@ -39,13 +39,19 @@ table {
 }
 
 #th_id {
-    width: 5%;
+    width: 8%;
 }
 #th_message {
-    width: 60%;
+    width: 55%;
 }
 #th_submission_time {
     width: 20%;
+}
+#th_view_number {
+    width: 10%;
+}
+#th_vote_number {
+    width: 10%;
 }
 #th_delete {
     width: 10%;

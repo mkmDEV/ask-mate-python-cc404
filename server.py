@@ -6,18 +6,27 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    questions = data_handler.show_questions()
-    return render_template('list.html',
-                           questions=questions,
-                           page_title='Welcome to AskMate!')
-
-
-@app.route('/list')
-def qlist():
     questions = data_handler.show_questions(None)
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
+
+
+@app.route('/list', methods=['GET', 'POST'])
+def sort_questions():
+    questions = data_handler.sort()
+    return render_template('list.html',
+                           questions=questions,
+                           page_title='Welcome to AskMate!')
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search = "%"+request.form['search']+"%"
+    questions = data_handler.show_questions(search)
+    return render_template('list.html',
+                           questions=questions,
+                           page_title='Search results:')
 
 
 @app.route('/question/<question_id>')
@@ -65,7 +74,6 @@ def write_new_answer(question_id: int):
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
 def post_new_answer(question_id: int):
     new_answer = dict(request.form)
-    print(new_answer)
     data_handler.add_message(question_id, new_answer)
     return redirect('/question/' + str(question_id))
 
