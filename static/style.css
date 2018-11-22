@@ -137,7 +137,7 @@ a:visited {
     width: 500px;
 }
 
-#post_question {
+#post_question, #post_comment, #post_answer {
     margin-left: 30%;
     background-color: lightsteelblue;
     width: 15%;
