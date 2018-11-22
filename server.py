@@ -115,10 +115,18 @@ def write_new_comment_for_answers(answer_id):
     comment_data = data_handler.show_answers(answer_id)
     return render_template('new_answer_comment.html',
                            page_title='Add new comment',
+                           question_id=answer.question_id,
                            answer_id=answer_id,
                            answer=answer_data,
                            comment=comment_data,
                            )
+
+
+@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+def post_new_comment_for_answers(question_id, answer_id):
+    new_comment = dict(request.form)
+    data_handler.add_comment_for_answer(answer_id, new_comment)
+    return redirect('/question/' + question_id)
 
 
 if __name__ == '__main__':
