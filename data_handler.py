@@ -61,7 +61,7 @@ def add_question(cursor, new_question):
 def add_message(cursor, question_id, new_answer):
     cursor.execute("""INSERT INTO answer (message, question_id)
                       VALUES (%(message)s, %(question_id)s);""",
-                   {'message': new_answer['message'][0], 'question_id': question_id})
+                   {'message': new_answer['message'], 'question_id': question_id})
 
 
 @database_common.connection_handler
