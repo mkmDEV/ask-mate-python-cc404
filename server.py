@@ -120,6 +120,11 @@ def post_new_comment_for_answers(answer_id):
     return redirect('/')
 
 
+@app.route('/christmas-egg')
+def christmas_egg():
+    return render_template('christmas_egg.html')
+
+
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',

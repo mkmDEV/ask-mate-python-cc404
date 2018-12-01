@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Molle:400italic&subset=latin,latin-ext);
+
 .content-wrapper {
     padding: 5%;
     margin: auto;
@@ -80,7 +82,8 @@ td {
 }
 
 #logo {
-    height: 150px;
+    height: 80px;
+    margin-top: 50px;
     float: left;
 }
 
@@ -181,3 +184,26 @@ fieldset textarea {
     font-size: 20px;
 }
 
+.happy_holidays_body {
+    background-color: hsla(0,0%,0%,1);
+    margin: 0px;
+    overflow: hidden;
+    font-family: 'Molle', cursive;
+    font-size: 30px;
+}
+
+.happy_holidays_text {
+    left: 35%;
+    position: absolute;
+    top: 50%;
+    transform: translate( -50%, -50%);
+    font-size:3em;
+    color:hsla(255, 255%, 255%, .6);
+}
+
+#santa_hat {
+    height: 80px;
+    margin-left: -80px;
+    margin-bottom: 10px;
+
+}

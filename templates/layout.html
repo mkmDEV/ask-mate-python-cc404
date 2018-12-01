@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" title="Default style" href={{ url_for('static', filename='style.css') }}>
+    <link rel="stylesheet" type="text/css" title="Default style" href={{ url_for('static', filename='css/style.css') }}>
         {% if page_title %}
             <title>{{ page_title }} | AskMate</title>
         {% else %}
@@ -22,6 +22,7 @@
     </div>
     <nav>
         <a href="/"><img src="{{ url_for('static', filename='am-png-6.png') }}" title="AskMate" id="logo"></a>
+        <a href="/christmas-egg"><img src="{{ url_for('static', filename='christmas_egg.png') }}" title="christmas_egg" id="santa_hat"></a>
     </nav>
 </header>
 <main role="main">
