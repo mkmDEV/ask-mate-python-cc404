@@ -4,10 +4,12 @@
 
 {% block content %}
     <h2>{{ page_title }}</h2>
-    <form action="{{ url_for('post_new_answer', question_id=question_id) }}", method="post">
+    <form action="{{ url_for('post_new_answer', question_id=question_id) }}", method="post" enctype="multipart/form-data">
         <div class="form">
             <h3>Your answer: </h3>
             <textarea name=message id="message" minlength="10" rows="10" cols="100" required ></textarea>
+            <h4>Picture (optional):</h4>
+            <input type="file" name="image" accept="image/" multiple>
         </div>
         <a href="{{ url_for('post_new_answer', question_id=question_id) }}"><input type="submit" id="post_answer" value="Post Your Answer"></a>
     </form>

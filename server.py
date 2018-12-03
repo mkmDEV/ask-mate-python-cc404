@@ -1,7 +1,10 @@
 from flask import Flask, render_template, redirect, request
 import data_handler
+import os
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'static/images'
 
 
 @app.route('/')
@@ -51,8 +54,11 @@ def write_new_question():
 
 @app.route('/new-question', methods=['POST'])
 def post_new_question():
+    file = request.files['image']
+    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(file_path)
     new_question = dict(request.form)
-    data_handler.add_question(new_question)
+    data_handler.add_question(new_question, file.filename)
     return redirect('/')
 
 
@@ -73,8 +79,11 @@ def write_new_answer(question_id: int):
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
 def post_new_answer(question_id: int):
+    file = request.files['image']
+    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(file_path)
     new_answer = dict(request.form)
-    data_handler.add_message(question_id, new_answer)
+    data_handler.add_message(question_id, new_answer, file.filename)
     return redirect('/question/' + str(question_id))
 
 

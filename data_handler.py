@@ -51,18 +51,17 @@ def show_answers(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_question(cursor, new_question):
+def add_question(cursor, new_question, file_path):
     cursor.execute("""INSERT INTO question (title, message, image) 
-                      VALUES (%(title)s, %(message)s, %(image)s);""",
-                   {'title': new_question['title'], 'message': new_question['message'],
-                    'image': new_question['image']})
+                      VALUES (%(title)s, %(message)s, %(file_path)s);""",
+                   {'title': new_question['title'], 'message': new_question['message'], 'file_path': file_path})
 
 
 @database_common.connection_handler
-def add_message(cursor, question_id, new_answer):
-    cursor.execute("""INSERT INTO answer (message, question_id)
-                      VALUES (%(message)s, %(question_id)s);""",
-                   {'message': new_answer['message'], 'question_id': question_id})
+def add_message(cursor, question_id, new_answer, file_path):
+    cursor.execute("""INSERT INTO answer (message, question_id, image)
+                      VALUES (%(message)s, %(question_id)s, %(file_path)s);""",
+                   {'message': new_answer['message'], 'question_id': question_id, 'file_path': file_path})
 
 
 @database_common.connection_handler

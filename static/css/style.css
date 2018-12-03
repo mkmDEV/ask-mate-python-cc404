@@ -24,7 +24,6 @@ h1 {
     float: bottom;
 }
 h2 {
-    margin-left: 15%;
     margin-bottom: 80px;
     text-align: center;
     font-size:30px;
@@ -206,4 +205,9 @@ fieldset textarea {
     margin-left: -80px;
     margin-bottom: 10px;
 
+}
+
+img.thumb {
+    height: 100px;
+    width: auto;
 }

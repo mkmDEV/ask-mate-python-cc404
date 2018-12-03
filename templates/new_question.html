@@ -3,14 +3,14 @@
 {% block title %} Questions {% endblock %}
 
 {% block content %}
-    <form action="{{ url_for('post_new_question') }}", method="post">
+    <form action="/new-question" method="post" enctype="multipart/form-data">
         <div class="form">
             <h3>Question title:</h3>
             <input type="text" name="title" id="title" minlength="5" height="20px" width="50px" required>
             <h3>Your question:</h3>
             <textarea name=message id="message" minlength="10" rows="10" cols="100" required></textarea>
             <h4>Picture (optional):</h4>
-            <input type="file" name="image" accept="image/" multiple>
+            <input type="file" name="image" accept="image/*">
         </div>
         <br>
         <a href="{{ url_for('post_new_question') }}"><input type="submit" id="post_question" value="Post Your Question"></a>

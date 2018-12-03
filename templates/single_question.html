@@ -9,22 +9,22 @@
                 </small>
             </header>
             <div class="container">
-                <pre>{{ question['message'] }}</pre>
+                    <pre>{{ question['message'] }}</pre>
+                    {% if question.image != None %}
+                        <a href="/static/images/{{ question.image }}" title="click here to see the full sized image"><img class="thumb" src="/static/images/{{ question.image }}"></a>
+                    {% endif %}
                     <section id="question-comments" class="comments">
                         <h5>Comments area <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a></h5>
                         <table>
                         {% for comment in comments %}
-
                             {% if comment.question_id == question.id %}
                                 <tr>
                                 <td id="td_comment_message" >{{ comment.message }}</td>
                                 <td><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a></td>
                                 <td><a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
-                            </tr>
+                                </tr>
                             {% endif %}
-
-                            {% endfor %}
-
+                        {% endfor %}
                         </table>
                     </section>
                 <div role="group" aria-label="Editing buttons">
@@ -35,7 +35,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th id="th_id">ID</th>
+                            <th id="th_id"></th>
                             <th id="th_message">Message</th>
                             <th id="th_submission_time">Submission Time</th>
                             <th id="th_vote_number">Vote Number</th>
@@ -45,7 +45,11 @@
                     <tbody>
                         {% for answer in answers %}
                         <tr>
-                            <th>{{ answer.id }}</th>
+                            <th>
+                                {% if answer.image != None %}
+                                    <a href="/static/images/{{ answer.image }}" title="click here to see the full sized image"><img class="thumb" src="/static/images/{{ answer.image }}"></a>
+                                {% endif %}
+                            </th>
                             <td id="td_message"><pre>{{ answer.message }}</pre></td>
                             <td><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
                             <td>{{ answer.vote_number }}</td>
@@ -58,8 +62,6 @@
                              <td colspan="3">
                                  <table>
                                  {% for comment in comments %}
-
-
                                     {% if comment.answer_id == answer.id%}
                                         <tr>
                                         <td id="td_comment_message">{{ comment.message }}</td>
@@ -67,10 +69,9 @@
                                             <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
                                         </tr>
                                     {% endif %}
-
                                 {% endfor %}
-                                </table></td>
-                            <td></td>
+                                </table>
+                             </td>
                         </tr>
                         {% endfor %}
                     {% endfor %}
