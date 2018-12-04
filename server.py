@@ -10,6 +10,7 @@ UPLOAD_FOLDER = 'static/images'
 @app.route('/')
 def home():
     questions = data_handler.show_questions(None)
+    session['user'] = 'mkm'
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -146,7 +147,7 @@ def getsession():
     return "Not logged in."
 
 
-@app.route('dropsession')
+@app.route('/dropsession')
 def dropsession():
     session.pop('user', None)
     return "Dropped"
@@ -160,10 +161,6 @@ def login():
 @app.route('/registration')
 def registration():
     return render_template('registration.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
 
 
 if __name__ == '__main__':
