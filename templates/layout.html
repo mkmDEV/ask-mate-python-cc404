@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" title="Default style" href={{ url_for('static', filename='css/style.css') }}>
+    <link rel="stylesheet" type="text/css" title="Default style" href={{ url_for('static', filename='css/style_temporary.css') }}>
         {% if page_title %}
             <title>{{ page_title }} | AskMate</title>
         {% else %}
@@ -14,16 +14,38 @@
 <body>
 <div class="content-wrapper">
 <header>
-    <div>
-        <form action="{{ url_for('search') }}" method="post">
+    <ul>
+        <li><form action="{{ url_for('search') }}" method="post"></li>
             <input type="text" name="search" id="search" placeholder="Search...">
-        <input type="image" id="search_image" src="/static/clipart2883794.png">
-        </form>
-    </div>
-    <nav>
-        <a href="/"><img src="{{ url_for('static', filename='am-png-6.png') }}" title="AskMate" id="logo"></a>
-        <a href="/christmas-egg"><img src="{{ url_for('static', filename='christmas_egg.png') }}" title="christmas_egg" id="santa_hat"></a>
-    </nav>
+            <input type="image" id="search_image" src="/static/clipart2883794.png">
+            </form>
+{#Ha van felhasználónév a sessionben:#}
+        {% if  false%}
+          <li>Welcome kiskutya</li>
+        {% else %}
+            <li><a href="/registration" class="navbar-link"></a>Register</li>
+            <li><a href="/login" class="navbar-link">log in</a></li>
+        {% endif %}
+
+        <li><a href="/"><img src="{{ url_for('static', filename='am-png-6.png') }}" title="AskMate" id="logo"></a></li>
+{#        <li><a href="/christmas-egg"><img src="{{ url_for('static', filename='christmas_egg.png') }}" title="christmas_egg" id="santa_hat"></a></li>#}
+    </ul>
+
+
+
+
+
+
+{#    <div>#}
+{#        <form action="{{ url_for('search') }}" method="post">#}
+{#            <input type="text" name="search" id="search" placeholder="Search...">#}
+{#        <input type="image" id="search_image" src="/static/clipart2883794.png">#}
+{#        </form>#}
+{#    </div>#}
+{#    <nav>#}
+{#        <a href="/"><img src="{{ url_for('static', filename='am-png-6.png') }}" title="AskMate" id="logo"></a>#}
+{#        <a href="/christmas-egg"><img src="{{ url_for('static', filename='christmas_egg.png') }}" title="christmas_egg" id="santa_hat"></a>#}
+{#    </nav>#}
 </header>
 <main role="main">
     <section>

@@ -1,0 +1,18 @@
+#search_image {
+    height: 30px;
+    float: right;
+    margin: 3px;
+}
+
+#logo {
+    height: 80px;
+    margin-top: 50px;
+    float: left;
+}
+
+#santa_hat {
+    height: 80px;
+    margin-left: -80px;
+    margin-bottom: 10px;
+
+}

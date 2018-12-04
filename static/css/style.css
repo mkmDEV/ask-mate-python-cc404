@@ -175,13 +175,13 @@ fieldset textarea {
     margin: 3px;
 }
 
-#search {
-    resize: horizontal;
-    height: 30px;
-    float: right;
-    border-color: #428bca;
-    font-size: 20px;
-}
+/*#search {*/
+    /*resize: horizontal;*/
+    /*height: 30px;*/
+    /*float: right;*/
+    /*border-color: #428bca;*/
+    /*font-size: 20px;*/
+/*}*/
 
 .happy_holidays_body {
     background-color: hsla(0,0%,0%,1);
