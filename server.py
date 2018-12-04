@@ -1,10 +1,11 @@
+from flask import Flask, render_template, redirect, request, session
 from flask import Flask, render_template, redirect, request, url_for
 import data_handler
 import os
 import password_verfication
 
 app = Flask(__name__)
-
+app.secret_key = os.urandom(24)
 UPLOAD_FOLDER = 'static/images'
 
 
@@ -55,11 +56,15 @@ def write_new_question():
 
 @app.route('/new-question', methods=['POST'])
 def post_new_question():
-    file = request.files['image']
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(file_path)
+    #if request.files is not None:
+    #    file = request.files['image']
+    #    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    #    file.save(file_path)
+    #    filename = file.filename
+    #else:
+    filename = None
     new_question = dict(request.form)
-    data_handler.add_question(new_question, file.filename)
+    data_handler.add_question(new_question, filename)
     return redirect('/')
 
 
@@ -149,6 +154,30 @@ def registration():
     else:
         message = 'The passwords don\'t match. Please, try again!'
     return url_for('registration', message=message, username=request.form['username'], email=request.form['email'])
+
+
+@app.route('/getsession')
+def getsession():
+    if 'user' in session:
+        return session['user']
+
+    return "Not logged in."
+
+
+@app.route('/dropsession')
+def dropsession():
+    session.pop('user', None)
+    return "Dropped"
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
+
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
 
 
 if __name__ == '__main__':
