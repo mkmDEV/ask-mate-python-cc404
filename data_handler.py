@@ -105,3 +105,9 @@ def add_comment_for_answer(cursor, answer_id, new_comment):
 def remove_comment(cursor, comment_id):
     cursor.execute("""DELETE FROM comment WHERE id=%(comment_id)s;""",
                    {'comment_id': comment_id})
+
+
+@database_common.connection_handler
+def save_user(cursor, user_data):
+    cursor.execute("""INSERT INTO user""")
+    pass

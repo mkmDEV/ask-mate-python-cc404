@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import data_handler
 import os
+import password_verfication
 
 app = Flask(__name__)
 
@@ -132,6 +133,22 @@ def post_new_comment_for_answers(answer_id):
 @app.route('/christmas-egg')
 def christmas_egg():
     return render_template('christmas_egg.html')
+
+
+@app.route('/registration', methods=['POST'])
+def registration():
+    user_data = {'user_name': request.form['username'],
+                 'user_email': request.form['email'],
+                 'user_password': request.form['password'],
+                 'confirm_password': request.form['confirm']}
+    hashed_password = password_verfication.hash_password(user_data['user_password'])
+    if password_verfication.verify_password(user_data['confirm_password'], hashed_password) is True:
+        message = 'Your registration was successful. Please, log in to continue!'
+        data_handler.save_user(user_data)
+        return redirect('/login', message=message)
+    else:
+        message = 'The passwords don\'t match. Please, try again!'
+    return url_for('registration', message=message, username=request.form['username'], email=request.form['email'])
 
 
 if __name__ == '__main__':
