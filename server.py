@@ -140,6 +140,11 @@ def christmas_egg():
     return render_template('christmas_egg.html')
 
 
+@app.route('/registration')
+def load_registration_page():
+    return render_template('registration.html')
+
+
 @app.route('/registration', methods=['POST'])
 def registration():
     user_data = {'user_name': request.form['username'],
@@ -149,8 +154,8 @@ def registration():
     hashed_password = password_verfication.hash_password(user_data['user_password'])
     if password_verfication.verify_password(user_data['confirm_password'], hashed_password) is True:
         message = 'Your registration was successful. Please, log in to continue!'
-        data_handler.save_user(user_data)
-        return redirect('/login', message=message)
+        data_handler.save_user(user_data, hashed_password)
+        return render_template('login.html', message=message)
     else:
         message = 'The passwords don\'t match. Please, try again!'
     return url_for('registration', message=message, username=request.form['username'], email=request.form['email'])
@@ -173,11 +178,6 @@ def dropsession():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
-
-
-@app.route('/registration')
-def registration():
-    return render_template('registration.html')
 
 
 if __name__ == '__main__':
