@@ -54,11 +54,15 @@ def write_new_question():
 
 @app.route('/new-question', methods=['POST'])
 def post_new_question():
-    file = request.files['image']
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(file_path)
+    #if request.files is not None:
+    #    file = request.files['image']
+    #    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    #    file.save(file_path)
+    #    filename = file.filename
+    #else:
+    filename = None
     new_question = dict(request.form)
-    data_handler.add_question(new_question, file.filename)
+    data_handler.add_question(new_question, filename)
     return redirect('/')
 
 
@@ -149,6 +153,15 @@ def dropsession():
 
 
 @app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
+
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
+
+@app.route('/login')
 def login():
     return render_template('login.html')
 
