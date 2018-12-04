@@ -1,9 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, session
 import data_handler
 import os
 
 app = Flask(__name__)
-
+app.secret_key = os.urandom(24)
 UPLOAD_FOLDER = 'static/images'
 
 
@@ -132,6 +132,25 @@ def post_new_comment_for_answers(answer_id):
 @app.route('/christmas-egg')
 def christmas_egg():
     return render_template('christmas_egg.html')
+
+
+@app.route('/getsession')
+def getsession():
+    if 'user' in session:
+        return session['user']
+
+    return "Not logged in."
+
+
+@app.route('dropsession')
+def dropsession():
+    session.pop('user', None)
+    return "Dropped"
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
 
 
 if __name__ == '__main__':
