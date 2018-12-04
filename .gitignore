@@ -102,3 +102,6 @@ ENV/
 
 # pycharm files
 .idea/
+
+# external files for project
+prezi/*
