@@ -109,5 +109,9 @@ def remove_comment(cursor, comment_id):
 
 @database_common.connection_handler
 def save_user(cursor, user_data):
-    cursor.execute("""INSERT INTO user""")
-    pass
+    cursor.execute("""INSERT INTO user
+                    VALUES (%(user_name)s, %(user_email)s, %(hashed_password)s);""",
+                   {'user_name': user_data['user_name'],
+                    'user_email': user_data['user_email'],
+                    'hashed_password':user_data['hashed_password']})
+
