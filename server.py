@@ -63,8 +63,9 @@ def post_new_question():
     #    filename = file.filename
     #else:
     filename = None
+    username = session['user']
     new_question = dict(request.form)
-    data_handler.add_question(new_question, filename)
+    data_handler.add_question(new_question, filename, username)
     return redirect('/')
 
 
