@@ -22,7 +22,7 @@
         <tbody>
             {% for question in questions %}
             <tr>
-                <th>{{ question['id'] }}</th>
+                <td>{{ question['id'] }}</td>
                 <td id="td_message"><a href="{{ url_for('display_question', question_id=question['id']) }}">{{ question['title'] }}</td>
                 <td>{{ question['submission_time'] }}</td>
                 <td>{{ question['view_number'] }}</td>
