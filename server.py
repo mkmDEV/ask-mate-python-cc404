@@ -166,7 +166,10 @@ def registration():
             return render_template('registration.html', message=error_message)
     else:
         message = 'The passwords don\'t match. Please, try again!'
-    return render_template('registration.html', message=message, username=request.form['username'], email=request.form['email'])
+    return render_template('registration.html',
+                           message=message,
+                           username=request.form['username'],
+                           email=request.form['email'])
 
 
 @app.route('/login', methods=['GET', 'POST'])
