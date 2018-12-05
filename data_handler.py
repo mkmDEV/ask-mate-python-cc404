@@ -105,3 +105,11 @@ def add_comment_for_answer(cursor, answer_id, new_comment):
 def remove_comment(cursor, comment_id):
     cursor.execute("""DELETE FROM comment WHERE id=%(comment_id)s;""",
                    {'comment_id': comment_id})
+
+
+@database_common.connection_handler
+def get_user_by_email(cursor, user_email):
+    cursor.execute("""SELECT * FROM user
+                      WHERE user_email=%(user_email)s""",
+                    {'email': user_email})
+    return cursor.fetchall()
