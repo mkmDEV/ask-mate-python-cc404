@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for
 import data_handler
 import os
 import password_verfication
+import psycopg2
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -154,11 +155,19 @@ def registration():
     hashed_password = password_verfication.hash_password(user_data['user_password'])
     if password_verfication.verify_password(user_data['confirm_password'], hashed_password) is True:
         message = 'Your registration was successful. Please, log in to continue!'
-        data_handler.save_user(user_data, hashed_password)
-        return render_template('login.html', message=message)
+        try:
+            data_handler.save_user(user_data, hashed_password)
+            return render_template('login.html', message=message)
+        except psycopg2.IntegrityError as e:
+            error_message = 'Something went wrong. Please, try again!'
+            if 'user_pk' in str(e):
+                error_message = 'This username is taken.'
+            elif 'user_user_email_uindex' in str(e):
+                error_message = 'This email is taken.'
+            return render_template('registration.html', message=error_message)
     else:
         message = 'The passwords don\'t match. Please, try again!'
-    return url_for('registration', message=message, username=request.form['username'], email=request.form['email'])
+    return render_template('registration.html', message=message, username=request.form['username'], email=request.form['email'])
 
 
 @app.route('/getsession')
