@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, session
 import data_handler
 import os
+from password_verfication import *
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -10,7 +11,6 @@ UPLOAD_FOLDER = 'static/images'
 @app.route('/')
 def home():
     questions = data_handler.show_questions(None)
-    session['user'] = 'mkm'
     return render_template('list.html',
                            questions=questions,
                            page_title='Welcome to AskMate!')
@@ -139,28 +139,16 @@ def christmas_egg():
     return render_template('christmas_egg.html')
 
 
-@app.route('/getsession')
-def getsession():
-    if 'user' in session:
-        return session['user']
-
-    return "Not logged in."
-
-
-@app.route('/dropsession')
-def dropsession():
-    session.pop('user', None)
-    return "Dropped"
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = data_handler.get_user_by_email(email)
+        if user and verify_password(password, user['hashed_password']):
+            session['user'] = user['user_name']
+            return redirect('/')
     return render_template('login.html')
-
-
-@app.route('/registration')
-def registration():
-    return render_template('registration.html')
 
 
 if __name__ == '__main__':

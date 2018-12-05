@@ -108,8 +108,8 @@ def remove_comment(cursor, comment_id):
 
 
 @database_common.connection_handler
-def get_user_by_email(cursor, user_email):
-    cursor.execute("""SELECT * FROM user
-                      WHERE user_email=%(user_email)s""",
-                    {'email': user_email})
-    return cursor.fetchall()
+def get_user_by_email(cursor, email):
+    cursor.execute("""SELECT * FROM "user"
+                      WHERE user_email=%(email)s""",
+                   {'email': email})
+    return cursor.fetchone()
