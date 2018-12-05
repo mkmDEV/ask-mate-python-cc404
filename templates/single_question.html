@@ -8,10 +8,14 @@
             By: {{ question['username'] }}
 
         </h4>
-            <div role="group" aria-label="Editing buttons">
-            <a href="#" title="Not implemented YET"><button type="button">Edit Question</button></a>
-            <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button">Delete Question</button></a>
-        </div>
+            {% if 'user' in session %}
+                {% if session.user == question.username or session.user == 'ADMIN' %}
+                    <div role="group" aria-label="Editing buttons">
+                        <a href="#" title="Not implemented YET"><button type="button">Edit Question</button></a>
+                        <a href="{{ url_for('delete_question', question_id=question['id']) }}"><button type="button">Delete Question</button></a>
+                    </div>
+                {% endif %}
+            {% endif %}
     </header>
     <div class="container">
             <div class="question">
@@ -21,7 +25,11 @@
             {% endif %}
             </div>
             <section id="question-comments" class="comments">
-                <h4>Comments area <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a></h4>
+                <h4>Comments area
+                    {% if 'user' in session %}
+                        <a href="{{ url_for('write_new_comment', question_id=question['id']) }}"><button type="button">Write new comment</button></a>
+                    {% endif %}
+                </h4>
                 <table>
                     <thead>
                         <tr>
@@ -41,15 +49,26 @@
                                     <td id="td_comment_message" >{{ comment.message }}</td>
                                     <td id="td_submission_time" >{{ comment.submission_time }}</td>
                                     <td id="td_published_by" >{{ comment.username }}</td>
-                                    <td><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a>
-                                        <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
+                                    <td></td>
+                                    <td>{% if 'user' in session %}
+                                            {% if session.user == question.username or session.user == 'ADMIN' %}
+                                                <a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}">
+                                                    <button id="td_button" type="button">Delete</button></a><br/>
+                                                <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
             </section>
-            <h4>Answers area <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button">Send an answer</button></a></h4>
+            <h4>Answers area
+                {% if 'user' in session %}
+                    <a href="{{ url_for('write_new_answer', question_id=question['id']) }}"><button type="button">Send an answer</button></a>
+                {% endif %}
+            </h4>
         <table>
             <thead>
                 <tr>
@@ -73,20 +92,31 @@
                         <td><time pubdate="{{ answer.submission_time }}">{{ answer['submission_time'] }}</time></td>
                         <td>{{ answer.username }}</td>
                         <td>{{ answer.vote_number }}</td>
-                        <td><a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
-                            <button type="button" id="delete_button">Delete</button></a><br />
-                            <a href="{{ url_for('write_new_comment_for_answers', answer_id=answer['id']) }}"><button id="delete_button">Comment</button></a></td>
+                        <td>{% if 'user' in session %}
+                                {% if session.user == question.username or session.user == 'ADMIN' %}
+                                    <a href="{{ url_for('delete_answer', question_id=question['id'], answer_id=answer['id']) }}">
+                                        <button type="button" id="delete_button">Delete</button></a><br/>
+                                    <a href="{{ url_for('write_new_comment_for_answers', answer_id=answer['id']) }}"><button id="delete_button">Comment</button></a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
                     </tr>
                     {% for comment in comments %}
                         {% if comment.answer_id == answer.id%}
                             <tr>
-                                        <td></td>
-                                        <td id="td_comment_message">{{ comment.message }}</td>
-                                        <td id="td_submission_time" >{{ comment.submission_time }}</td>
-                                        <td id="td_published_by" >{{ comment.username }}</td>
-                                        <td></td>
-                                        <td ><a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}"><button id="td_button" type="button">Delete</button></a>
-                                             <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a></td>
+                                <td></td>
+                                <td id="td_comment_message">{{ comment.message }}</td>
+                                <td id="td_submission_time" >{{ comment.submission_time }}</td>
+                                <td id="td_published_by" >{{ comment.username }}</td>
+                                <td></td>
+                                <td>{% if 'user' in session %}
+                                        {% if session.user == question.username or session.user == 'ADMIN' %}
+                                            <a href="{{ url_for('delete_comment', question_id=question['id'], comment_id=comment['id']) }}">
+                                                <button id="td_button" type="button">Delete</button></a><br/>
+                                            <a href="#" title="Not implemented YET"><button id="td_button" type="button">Edit</button></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endif %}
                     {% endfor %}

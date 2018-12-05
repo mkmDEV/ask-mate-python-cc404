@@ -52,17 +52,23 @@ def show_answers(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_question(cursor, new_question, file_path):
-    cursor.execute("""INSERT INTO question (title, message, image) 
-                      VALUES (%(title)s, %(message)s, %(file_path)s);""",
-                   {'title': new_question['title'], 'message': new_question['message'], 'file_path': file_path})
+def add_question(cursor, new_question, file_path, username):
+    cursor.execute("""INSERT INTO question (title, message, image, username) 
+                      VALUES (%(title)s, %(message)s, %(file_path)s, %(username)s);""",
+                   {'title': new_question['title'],
+                    'message': new_question['message'],
+                    'file_path': file_path,
+                    'username': username})
 
 
 @database_common.connection_handler
-def add_message(cursor, question_id, new_answer, file_path):
-    cursor.execute("""INSERT INTO answer (message, question_id, image)
-                      VALUES (%(message)s, %(question_id)s, %(file_path)s);""",
-                   {'message': new_answer['message'], 'question_id': question_id, 'file_path': file_path})
+def add_message(cursor, question_id, new_answer, file_path, username):
+    cursor.execute("""INSERT INTO answer (message, question_id, image, username)
+                      VALUES (%(message)s, %(question_id)s, %(file_path)s, %(username)s);""",
+                   {'message': new_answer['message'],
+                    'question_id': question_id,
+                    'file_path': file_path,
+                    'username': username})
 
 
 @database_common.connection_handler
@@ -89,17 +95,17 @@ def show_comments(cursor):
 
 
 @database_common.connection_handler
-def add_comment_for_question(cursor, question_id, new_comment):
-    cursor.execute("""INSERT INTO comment (message, question_id)
-                      VALUES (%(message)s, %(question_id)s);""",
-                   {'message': new_comment['message'], 'question_id': question_id})
+def add_comment_for_question(cursor, question_id, new_comment, username):
+    cursor.execute("""INSERT INTO comment (message, question_id, username)
+                      VALUES (%(message)s, %(question_id)s, %(username)s);""",
+                   {'message': new_comment['message'], 'question_id': question_id, 'username': username})
 
 
 @database_common.connection_handler
-def add_comment_for_answer(cursor, answer_id, new_comment):
-    cursor.execute("""INSERT INTO comment (message, answer_id)
-                      VALUES (%(message)s, %(answer_id)s);""",
-                   {'message': new_comment['message'], 'answer_id': answer_id})
+def add_comment_for_answer(cursor, answer_id, new_comment, username):
+    cursor.execute("""INSERT INTO comment (message, answer_id, username)
+                      VALUES (%(message)s, %(answer_id)s, %(username)s);""",
+                   {'message': new_comment['message'], 'answer_id': answer_id, 'username': username})
 
 
 @database_common.connection_handler

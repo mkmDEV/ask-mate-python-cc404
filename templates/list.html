@@ -1,8 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h1>{{ page_title }}</h1>
-    <a href="{{ url_for('post_new_question') }}"><button>Add new Question</button></a>
-    <a href="{{ url_for('sort_questions', submission_time="desc") }}"><button>Show all question</button></a>
+        <a href="{{ url_for('sort_questions', submission_time="desc") }}"><button>Show all question</button></a>
+    {% if 'user' in session %}
+        <a href="{{ url_for('post_new_question') }}"><button>Add new Question</button></a>
+    {% endif %}
     <table>
         <thead>
         <tr>

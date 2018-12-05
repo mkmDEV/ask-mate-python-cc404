@@ -19,8 +19,12 @@
             <input type="text" name="search" id="search" placeholder="Search...">
         <input type="image" id="search_image" src="/static/clipart2883794.png">
         </form>
-        <a href="/registration"><button>Sign Up</button></a>
-        <a href="/login"><button>Login</button></a>
+        {% if 'user' in session %}
+            <a href="/logout"><button>Logout</button></a>
+        {% else %}
+            <a href="/login"><button>Login</button></a>
+            <a href="/registration"><button>Sign Up</button></a>
+        {% endif %}
     </div>
     <nav>
         <a href="/"><img src="{{ url_for('static', filename='am-png-6.png') }}" title="AskMate" id="logo"></a>
