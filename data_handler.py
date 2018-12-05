@@ -11,7 +11,8 @@ def show_questions(cursor, search, limit=5):
     else:
         cursor.execute("""SELECT * FROM question 
                           WHERE LOWER(title) LIKE LOWER(%(search)s) OR
-                                LOWER(message) LIKE LOWER(%(search)s)
+                                LOWER(message) LIKE LOWER(%(search)s) OR
+                                LOWER(username) LIKE LOWER(%(search)s)
                           ORDER BY submission_time
                           DESC LIMIT %(limit)s""",
                        {'limit': limit, 'search': search})

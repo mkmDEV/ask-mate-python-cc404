@@ -54,13 +54,13 @@ def write_new_question():
 
 @app.route('/new-question', methods=['POST'])
 def post_new_question():
-    #if request.files is not None:
-    #    file = request.files['image']
-    #    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    #    file.save(file_path)
-    #    filename = file.filename
-    #else:
-    filename = None
+    if 'image' in request.files:
+        file = request.files['image']
+        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(file_path)
+        filename = file.filename
+    else:
+        filename = None
     new_question = dict(request.form)
     data_handler.add_question(new_question, filename)
     return redirect('/')
@@ -83,11 +83,15 @@ def write_new_answer(question_id: int):
 
 @app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
 def post_new_answer(question_id: int):
-    file = request.files['image']
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(file_path)
+    if 'image' in request.files:
+        file = request.files['image']
+        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(file_path)
+        filename = file.filename
+    else:
+        filename = None
     new_answer = dict(request.form)
-    data_handler.add_message(question_id, new_answer, file.filename)
+    data_handler.add_message(question_id, new_answer, filename)
     return redirect('/question/' + str(question_id))
 
 

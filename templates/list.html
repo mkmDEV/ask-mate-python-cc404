@@ -12,6 +12,8 @@
                 <a href={{url_for( 'sort_questions', message="desc" )}}>&#9660; </a></th>
             <th id="th_submission_time">Submission Time<a href={{url_for( 'sort_questions', submission_time="asc" )}}>&#9650;</a>
                 <a href={{url_for( 'sort_questions', submission_time="desc" )}}>&#9660; </a></th>
+            <th id="th_published_by">Published by<a href={{url_for( 'sort_questions', username="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', username="desc" )}}>&#9660; </a></th>
             <th id="th_view_number">Views<a href={{url_for( 'sort_questions', view_number="asc" )}}>&#9650;</a>
                 <a href={{url_for( 'sort_questions', view_number="desc" )}}>&#9660; </a></th>
             <th id="th_vote_number">Votes<a href={{url_for( 'sort_questions', vote_number="asc" )}}>&#9650;</a>
@@ -25,6 +27,7 @@
                 <th>{{ question['id'] }}</th>
                 <td id="td_message"><a href="{{ url_for('display_question', question_id=question['id']) }}">{{ question['title'] }}</td>
                 <td>{{ question['submission_time'] }}</td>
+                <td>{{ question['username'] }}</td>
                 <td>{{ question['view_number'] }}</td>
                 <td>{{ question['vote_number'] }}</td>
             </tr>
