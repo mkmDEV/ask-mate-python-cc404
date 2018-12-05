@@ -115,3 +115,11 @@ def save_user(cursor, user_data, hashed_password):
                     'user_email': user_data['user_email'],
                     'hashed_password': hashed_password})
 
+
+
+@database_common.connection_handler
+def get_user_by_email(cursor, email):
+    cursor.execute("""SELECT * FROM "user"
+                      WHERE user_email=%(email)s""",
+                   {'email': email})
+    return cursor.fetchone()

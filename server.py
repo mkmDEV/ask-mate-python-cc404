@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request, session
-from flask import Flask, render_template, redirect, request, url_for
 import data_handler
 import os
 import password_verfication
@@ -170,23 +169,23 @@ def registration():
     return render_template('registration.html', message=message, username=request.form['username'], email=request.form['email'])
 
 
-@app.route('/getsession')
-def getsession():
-    if 'user' in session:
-        return session['user']
-
-    return "Not logged in."
-
-
-@app.route('/dropsession')
-def dropsession():
-    session.pop('user', None)
-    return "Dropped"
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = data_handler.get_user_by_email(email)
+        if user and password_verfication.verify_password(password, user['hashed_password']):
+            session['user'] = user['user_name']
+            return redirect('/')
     return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    if 'user' in session:
+        session.pop('user', None)
+        return redirect('/')
 
 
 if __name__ == '__main__':
