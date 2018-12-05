@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-       <form action="{{ url_for('post_new_comment_for_answers', answer_id=answer_id) }}", method="post">
+       <form action="{{ url_for('post_new_comment_for_answers', answer_id=answer_id, question_id=question_id) }}", method="post">
         <div class="form">
             <h3>Your Comment: </h3>
             <textarea name=message id="message" minlength="10" rows="10" cols="100" required ></textarea>
         </div>
-        <a href="{{ url_for('post_new_comment_for_answers', answer_id=answer_id) }}"><input type="submit" id="post_comment" value="Post comment"></a>
+        <a href="{{ url_for('post_new_comment_for_answers', answer_id=answer_id, question_id=question_id) }}"><input type="submit" id="post_comment" value="Post comment"></a>
     </form>
 {% endblock %}

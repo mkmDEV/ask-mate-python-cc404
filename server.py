@@ -11,8 +11,6 @@ UPLOAD_FOLDER = 'static/images'
 
 @app.route('/')
 def home():
-    if 'user' in session:
-        print(session['user'])
     questions = data_handler.show_questions(None)
     return render_template('list.html',
                            questions=questions,
@@ -65,8 +63,7 @@ def post_new_question():
         filename = file.filename
     else:
         filename = None
-    new_question = dict(request.form)
-    data_handler.add_question(new_question, filename, session['user'])
+    data_handler.add_question(request.form['title'], request.form['message'], filename, session['user'])
     return redirect('/')
 
 
@@ -94,8 +91,7 @@ def post_new_answer(question_id: int):
         filename = file.filename
     else:
         filename = None
-    new_answer = dict(request.form)
-    data_handler.add_message(question_id, new_answer, filename, session['user'])
+    data_handler.add_answer(question_id, request.form['message'], filename, session['user'])
     return redirect('/question/' + str(question_id))
 
 
@@ -115,8 +111,7 @@ def write_new_comment(question_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def post_new_comment(question_id):
-    new_comment = dict(request.form)
-    data_handler.add_comment_for_question(question_id, new_comment, session['user'])
+    data_handler.add_comment_for_question(question_id, request.form['message'], session['user'])
     return redirect('/question/' + question_id)
 
 
@@ -126,19 +121,19 @@ def delete_comment(question_id, comment_id: int):
     return redirect('/question/' + question_id)
 
 
-@app.route('/answer/<answer_id>/new-comment')
-def write_new_comment_for_answers(answer_id):
+@app.route('/question/<question_id>/answer/<answer_id>/new-comment')
+def write_new_comment_for_answers(answer_id, question_id):
     return render_template('new_answer_comment.html',
                            page_title='Add new comment',
                            answer_id=answer_id,
+                           question_id=question_id
                            )
 
 
-@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
-def post_new_comment_for_answers(answer_id):
-    new_comment = dict(request.form)
-    data_handler.add_comment_for_answer(answer_id, new_comment, session['user'])
-    return redirect('/')
+@app.route('/question/<question_id>/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+def post_new_comment_for_answers(answer_id, question_id):
+    data_handler.add_comment_for_answer(answer_id, request.form['message'], session['user'])
+    return redirect('/question/' + question_id)
 
 
 @app.route('/christmas-egg')
