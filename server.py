@@ -161,7 +161,7 @@ def registration():
         file.save(file_path)
         filename = file.filename
     else:
-        filename = None
+        filename = "noimage.png"
     user_data = {'user_name': request.form['username'],
                  'user_email': request.form['email'],
                  'user_password': request.form['password'],
