@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>{{ page_title }}</h1>
+        <a href="{{ url_for('sort_questions', submission_time="desc") }}"><button>Show all question</button></a>
+    {% if 'user' in session %}
+        <a href="{{ url_for('post_new_question') }}"><button>Add new Question</button></a>
+    {% endif %}
+    <table>
+        <thead>
+        <tr>
+            <th id="th_id">Profile picture</th>
+            <th id="th_username">Username<a href={{url_for( 'sort_questions', title="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', title="desc" )}}>&#9660; </a></th>
+            <th id="th_submission_time">Email<a href={{url_for( 'sort_questions', submission_time="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', submission_time="desc" )}}>&#9660; </a></th>
+            <th id="th_published_by">Date of registration<a href={{url_for( 'sort_questions', username="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', username="desc" )}}>&#9660; </a></th>
+            <th id="th_view_number">Questions<a href={{url_for( 'sort_questions', view_number="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', view_number="desc" )}}>&#9660; </a></th>
+            <th id="th_vote_number">Answers<a href={{url_for( 'sort_questions', vote_number="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', vote_number="desc" )}}>&#9660; </a></th>
+            <th id="th_vote_number">Comments<a href={{url_for( 'sort_questions', vote_number="asc" )}}>&#9650;</a>
+                <a href={{url_for( 'sort_questions', vote_number="desc" )}}>&#9660; </a></th>
+        </tr>
+        </thead>
+
+        <tbody>
+            {% for user in user_data %}
+            <tr>
+                <td>{{ user['image'] }}</td>
+                <td>{{ user[''] }}</td>
+                <td>{{ user[''] }}</td>
+                <td>{{ user[''] }}</td>
+                <td>{{ user[''] }}</td>
+                <td>{{ user[''] }}</td>
+                <td>{{ user[''] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
