@@ -144,6 +144,6 @@ def list_all_users(cursor):
                     LEFT JOIN answer ON "user".user_name=answer.username
                     LEFT JOIN "comment" ON "user".user_name="comment".username
                     WHERE "user".user_name=question.username AND "user".user_name=answer.username AND "user".user_name="comment".username
-                    OR (question.username IS NULL)
+                    OR (question.username IS NULL) OR (answer.username IS NULL) OR ("comment".username IS NULL)
                     GROUP BY "user".user_name, question.id, answer.id, "comment".id""")
     return cursor.fetchall()
