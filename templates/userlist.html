@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>{{ page_title }}</h1>
+        <a href="{{ url_for('sort_questions', submission_time="desc") }}"><button>Show all question</button></a>
+    {% if 'user' in session %}
+        <a href="{{ url_for('post_new_question') }}"><button>Add new Question</button></a>
+    {% endif %}
+    <table>
+        <thead>
+        <tr>
+            <th id="th_user_image">Profile picture</th>
+            <th id="th_user_name">Username</th>
+            <th id="th_user_mail">Email</th>
+            <th id="th_user_reg">Date of registration</th>
+            <th id="th_user_q">Questions</th>
+            <th id="th_user_a">Answers</th>
+            <th id="th_user_c">Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for user in user_data %}
+            <tr>
+                <td><a href="/static/profile_pictures/{{ user['user_image'] }}" title="click here to see the full sized image">
+                    <img class="thumb" src="/static/profile_pictures/{{ user['user_image'] }}"></a></td>
+                <td>{{ user['user_name'] }}</td>
+                <td>{{ user['user_email'] }}</td>
+                <td>{{ user['reg_time'] }}</td>
+                <td>{{ user['question'] }}</td>
+                <td>{{ user['answer'] }}</td>
+                <td>{{ user['comment'] }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

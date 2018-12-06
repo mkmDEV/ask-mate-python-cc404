@@ -7,6 +7,7 @@ import psycopg2
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 UPLOAD_FOLDER = 'static/images'
+PROFILE_PICTURES = 'static/profile_pictures'
 
 
 @app.route('/')
@@ -148,6 +149,13 @@ def load_registration_page():
 
 @app.route('/registration', methods=['POST'])
 def registration():
+    if 'image' in request.files:
+        file = request.files['image']
+        file_path = os.path.join(PROFILE_PICTURES, file.filename)
+        file.save(file_path)
+        filename = file.filename
+    else:
+        filename = None
     user_data = {'user_name': request.form['username'],
                  'user_email': request.form['email'],
                  'user_password': request.form['password'],
@@ -156,7 +164,7 @@ def registration():
     if password_verfication.verify_password(user_data['confirm_password'], hashed_password) is True:
         message = 'Your registration was successful. Please, log in to continue!'
         try:
-            data_handler.save_user(user_data, hashed_password)
+            data_handler.save_user(user_data, hashed_password, filename)
             return render_template('login.html', message=message)
         except psycopg2.IntegrityError as e:
             error_message = 'Something went wrong. Please, try again!'

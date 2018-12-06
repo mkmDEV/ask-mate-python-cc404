@@ -77,6 +77,27 @@ td {
 #th_delete {
     width: 8%;
 }
+#th_user_image {
+    width: 15%;
+}
+#th_user_name {
+    width: 15%;
+}
+#th_user_mail {
+    width: 15%;
+}
+#th_user_reg {
+    width: 25%;
+}
+#th_user_q {
+    width: 10%;
+}
+#th_user_a {
+    width: 10%;
+}
+#th_user_c {
+    width: 10%;
+}
 #td_message {
     text-align: left;
     font-size: 16px;
