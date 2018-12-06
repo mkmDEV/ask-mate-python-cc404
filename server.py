@@ -200,6 +200,10 @@ def login():
         if user and password_verfication.verify_password(password, user['hashed_password']):
             session['user'] = user['user_name']
             return redirect('/')
+        else:
+            message = "Login failed. Please check your details."
+            return render_template('login.html',
+                                   message=message,)
     return render_template('login.html')
 
 

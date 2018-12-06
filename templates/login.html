@@ -5,6 +5,9 @@
 {% block content %}
     <form action="#" method="post">
         <div class="form">
+            {% if message %}
+                <span id="warning">{{ message }}</span>
+            {% endif %}
             <h3>Email:</h3>
             <input type="email" name="email" id="useremail" placeholder="you@example.com" height="20px" width="50px" required>
             <h3>Password:</h3>
