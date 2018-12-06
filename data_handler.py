@@ -116,7 +116,6 @@ def save_user(cursor, user_data, hashed_password):
                     'hashed_password': hashed_password})
 
 
-
 @database_common.connection_handler
 def get_user_by_email(cursor, email):
     cursor.execute("""SELECT * FROM "user"
