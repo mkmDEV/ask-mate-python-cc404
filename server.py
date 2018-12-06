@@ -136,22 +136,10 @@ def post_new_comment_for_answers(answer_id, question_id):
     return redirect('/question/' + question_id)
 
 
-@app.route('/all-users')
+@app.route('/userlist')
 def list_all_users():
-    user_data = data_handler.get_all_users()
-    username = user_data['username']
-    user_email = user_data['user_email']
-    number_of_questions = user_data['number_of_questions']
-    number_of_answers = user_data['number_of_answers']
-    number_of_comments = user_data['number_of_comments']
-    table_headers = [username, user_email, number_of_questions, number_of_answers, number_of_comments, rating]
-    return render_template('list_users.html',
-                           table_headers=table_headers,
-                           username=username,
-                           email=user_email,
-                           questions=number_of_questions,
-                           answers=number_of_answers,
-                           comments=number_of_comments)
+    user_data = data_handler.list_all_users()
+    return render_template('userlist.html', user_data=user_data)
 
 
 @app.route('/christmas-egg')
