@@ -11,7 +11,8 @@ def show_questions(cursor, search, limit=5):
     else:
         cursor.execute("""SELECT * FROM question 
                           WHERE LOWER(title) LIKE LOWER(%(search)s) OR
-                                LOWER(message) LIKE LOWER(%(search)s)
+                                LOWER(message) LIKE LOWER(%(search)s) OR
+                                LOWER(username) LIKE LOWER(%(search)s)
                           ORDER BY submission_time
                           DESC LIMIT %(limit)s""",
                        {'limit': limit, 'search': search})
@@ -51,17 +52,23 @@ def show_answers(cursor, question_id):
 
 
 @database_common.connection_handler
-def add_question(cursor, new_question, file_path):
-    cursor.execute("""INSERT INTO question (title, message, image) 
-                      VALUES (%(title)s, %(message)s, %(file_path)s);""",
-                   {'title': new_question['title'], 'message': new_question['message'], 'file_path': file_path})
+def add_question(cursor, title, message, file_path, username):
+    cursor.execute("""INSERT INTO question (title, message, image, username) 
+                      VALUES (%(title)s, %(message)s, %(file_path)s, %(username)s);""",
+                   {'title': title,
+                    'message': message,
+                    'file_path': file_path,
+                    'username': username})
 
 
 @database_common.connection_handler
-def add_message(cursor, question_id, new_answer, file_path):
-    cursor.execute("""INSERT INTO answer (message, question_id, image)
-                      VALUES (%(message)s, %(question_id)s, %(file_path)s);""",
-                   {'message': new_answer['message'], 'question_id': question_id, 'file_path': file_path})
+def add_answer(cursor, question_id, message, file_path, username):
+    cursor.execute("""INSERT INTO answer (question_id, message, image, username)
+                      VALUES (%(question_id)s, %(message)s, %(file_path)s, %(username)s);""",
+                   {'question_id': question_id,
+                    'message': message,
+                    'file_path': file_path,
+                    'username': username})
 
 
 @database_common.connection_handler
@@ -88,17 +95,17 @@ def show_comments(cursor):
 
 
 @database_common.connection_handler
-def add_comment_for_question(cursor, question_id, new_comment):
-    cursor.execute("""INSERT INTO comment (message, question_id)
-                      VALUES (%(message)s, %(question_id)s);""",
-                   {'message': new_comment['message'], 'question_id': question_id})
+def add_comment_for_question(cursor, question_id, message, username):
+    cursor.execute("""INSERT INTO comment (question_id, message, username)
+                      VALUES (%(question_id)s, %(message)s, %(username)s);""",
+                   {'question_id': question_id, 'message': message, 'username': username})
 
 
 @database_common.connection_handler
-def add_comment_for_answer(cursor, answer_id, new_comment):
-    cursor.execute("""INSERT INTO comment (message, answer_id)
-                      VALUES (%(message)s, %(answer_id)s);""",
-                   {'message': new_comment['message'], 'answer_id': answer_id})
+def add_comment_for_answer(cursor, answer_id, message, username):
+    cursor.execute("""INSERT INTO comment (answer_id, message, username)
+                      VALUES (%(answer_id)s, %(message)s, %(username)s);""",
+                   {'answer_id': answer_id, 'message': message, 'username': username})
 
 
 @database_common.connection_handler
