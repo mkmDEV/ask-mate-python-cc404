@@ -128,4 +128,17 @@ def get_user_by_email(cursor, email):
     cursor.execute("""SELECT * FROM "user"
                       WHERE user_email=%(email)s""",
                    {'email': email})
-    return cursor.fetchone()
+    user_data = cursor.fetchone()
+    return user_data
+
+
+@database_common.connection_handler
+def list_all_users(cursor):
+    cursor.execute("""SELECT DISTINCT "user".user_name, "user".user_email, "user".reg_time,
+                    (SELECT COUNT(question.id) FROM question WHERE question.username="user".user_name) as question,
+                    (SELECT COUNT(answer.id) FROM answer WHERE answer.username="user".user_name) as answer,
+                    (SELECT COUNT("comment".id) FROM "comment" WHERE "comment".username="user".user_name) as "comment",
+                    FROM "user", question, answer, "comment"
+                    WHERE "user".user_name=question.username AND "user".user_name=answer.username AND "user".user_name="comment".username
+                    GROUP BY "user".user_name, question.id, answer.id, "comment".id""")
+    return cursor.fetchall()
