@@ -9,10 +9,17 @@ def show_questions(cursor, search, limit=5):
                           ORDER BY submission_time
                           DESC LIMIT 5""")
     else:
-        cursor.execute("""SELECT * FROM question 
+        cursor.execute("""SELECT * 
+                          FROM question as q2
+                          JOIN answer a on q2.id = a.question_id
+                          JOIN comment c2 on a.id = c2.answer_id
                           WHERE LOWER(title) LIKE LOWER(%(search)s) OR
-                                LOWER(message) LIKE LOWER(%(search)s) OR
-                                LOWER(username) LIKE LOWER(%(search)s)
+                                LOWER(q2.message) LIKE LOWER(%(search)s) OR
+                                LOWER(a.message) LIKE LOWER(%(search)s) OR
+                                LOWER(c2.message) LIKE LOWER(%(search)s) OR
+                                LOWER(q2,username) LIKE LOWER(%(search)s)
+                                LOWER(a.username) LIKE LOWER(%(search)s)
+                                LOWER(c2.username) LIKE LOWER(%(search)s)
                           ORDER BY submission_time
                           DESC LIMIT %(limit)s""",
                        {'limit': limit, 'search': search})
