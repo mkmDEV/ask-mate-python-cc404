@@ -140,7 +140,7 @@ def post_new_comment_for_answers(answer_id, question_id):
 @app.route('/userlist')
 def list_all_users():
     user_data = data_handler.list_all_users()
-    return render_template('userlist.html', user_data=user_data)
+    return render_template('userlist.html', user_data=user_data, page_title='Registered Users:')
 
 
 @app.route('/christmas-egg')
