@@ -175,7 +175,7 @@ def registration():
         message = 'Your registration was successful. Please, log in to continue!'
         try:
             data_handler.save_user(user_data, hashed_password)
-            return render_template('login.html', message=message)
+            return render_template('registration.html', message=message)
         except psycopg2.IntegrityError as e:
             error_message = 'Something went wrong. Please, try again!'
             if 'user_pk' in str(e):
