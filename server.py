@@ -136,6 +136,12 @@ def post_new_comment_for_answers(answer_id):
     return redirect('/')
 
 
+@app.route('/userlist')
+def list_all_users():
+    user_data = data_handler.list_all_users()
+    return render_template('userlist.html', user_data=user_data)
+
+
 @app.route('/christmas-egg')
 def christmas_egg():
     return render_template('christmas_egg.html')
