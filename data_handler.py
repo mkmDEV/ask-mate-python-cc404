@@ -9,7 +9,7 @@ def show_questions(cursor, search, limit=5):
                           ORDER BY submission_time
                           DESC LIMIT 5""")
     else:
-        cursor.execute("""SELECT DISTINCT * 
+        cursor.execute("""SELECT * 
                           FROM question as q2
                           JOIN answer a on q2.id = a.question_id
                           JOIN comment c2 on a.id = c2.answer_id
